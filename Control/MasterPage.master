@@ -1,0 +1,83 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="Control_MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="../Styles/GlobalStyle.css" rel="Stylesheet" type="text/css" />
+    <link href="../Styles/InputStyle.css" rel="Stylesheet" type="text/css" />
+    <link href="../Styles/TabMenuBar.css" rel="Stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <div class="indiaLogo">
+            <img src="../Images/indiaLogo.gif" alt="a" />
+        </div>
+        <div id="masterPage">
+            <div class="row">
+            <div class="homeHeader"></div>
+            <div class="homeHeaderText">
+                Chandigarh <br />
+                Thursday,Sept.16,2010
+            </div>
+        </div>
+            <div class="minorGap"></div>
+            <div class="row">
+            <center><h2>Estate Management Allotment System</h2></center>
+        </div>
+            <div class="minorGap"></div>
+            <div class="row">
+                <table id="tbContainer" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td id="tdvMenu">
+                            <div class="vMenu">
+                                <ul>
+                                    <li><a href="~/user/submission.aspx" id="hh" runat="server">House Allotment</a></li>
+                                    <li><a href="#">Circulars</a></li>
+                                    <li><a href="#">Photo Gallery</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Login</a></li>
+                                </ul>
+                            </div>  
+                        </td>
+                        <td id="tdvMasterContainer">
+                            <div id="masterContainer">
+                                <div class="row">
+                                    <div class="hMenu">
+		                                <ul>
+			                                <li><a href="#" >Home</a></li>
+			                                <li><a href="#" >About us</a></li>
+		  	                                <li><a href="#" >Citizen Charter</a></li>
+			                                <li><a href="#" >Contact us</a></li>
+		                                </ul>
+	                                </div>
+                                  <%--  <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>
+                                    <asp:UpdatePanel ID="panelMaster" runat="server">
+                                        <ContentTemplate>
+                                            <asp:PlaceHolder ID="pholder" runat="server">--%>
+                                                <asp:ContentPlaceHolder ID="phEmsPublicSite" runat="server">
+                            
+                                                </asp:ContentPlaceHolder>
+                                            <%--</asp:PlaceHolder>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>--%>
+                                </div>
+                            </div>            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="footer"> 
+            <div id="copyRight"> 
+                © 2010 - Powered by triGENZ Solutions Limited.
+            </div> 
+        </div>
+    </div>
+    </form>
+</body>
+</html>

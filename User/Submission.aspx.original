@@ -1,0 +1,381 @@
+﻿    <%@ Page Title="" Language="C#" MasterPageFile="~/sitemaster.master" AutoEventWireup="true" CodeFile="Submission.aspx.cs" Inherits="User_Submission" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="phEmsWebAppHead" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="phEmsWebApp" Runat="Server">
+<script type="text/javascript">
+//    function showAudit(value) {
+//    if(value==1)
+//        document.getElementById('auditpool').style.display = "block";
+//    else
+//        document.getElementById('auditpool').style.display = "none";
+//} 
+function showsublet(value) {
+    if (value == 1)
+        document.getElementById('sublet').style.display = "block";
+    else
+        document.getElementById('sublet').style.display = "none";
+}
+function showbarredDate(value) {
+    if (value == 1)
+        document.getElementById('barredDate').style.display = "block";
+    else
+        document.getElementById('barredDate').style.display = "none";
+}
+
+
+
+function confirmmessage() {
+    if (Page_ClientValidate('submitapplication')) {
+        if (confirm("Are you sure to continue?")) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
+
+
+</script>
+<AjaxToolkit:ToolkitScriptManager  ID="scriptManager12"  runat="server"  EnableScriptLocalization="true" EnableScriptGlobalization="true">
+ </AjaxToolkit:ToolkitScriptManager>
+ <asp:ValidationSummary ID="val123" runat="server" ShowMessageBox="true" ValidationGroup="submitapplication" ShowSummary="false" HeaderText="the form could't submitted due to:" />
+<div class="contentContainer" style="overflow:scroll;">
+<div id="managerContainerHeader">
+<span>Submission</span> 
+</div>
+
+<br /><br />
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <div><asp:Label ID="lblmessage" runat="server" Visible="false"></asp:Label></div>
+        </div>
+           </div>
+           <br />
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Quarter Type :</div>
+            <div><asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="drpQuarterCategory_selectedindex" ID="drpQuarterCategory" DataTextField="Name" DataValueField="Id" runat="server" ></asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" 
+                    ErrorMessage="Please select quarter type" ControlToValidate="drpQuarterCategory" 
+                    Display="None" InitialValue="-1" ValidationGroup="submitapplication"></asp:RequiredFieldValidator>
+                                        </div>
+        </div>
+        <div class="rightMiddleColumn">
+            <div>AAN :</div>
+            <div><asp:TextBox ID="txtAAN" runat="server"  ReadOnly="true"></asp:TextBox></div>
+        </div>
+           </div>
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Name(in block letters) :</div>
+            <div><asp:TextBox ID="txtUsername" runat="server" ></asp:TextBox>
+            <asp:RequiredFieldValidator ID="regname" ValidationGroup="submitapplication" runat="server" ControlToValidate="txtUsername" ErrorMessage="please enter name." Display="None"></asp:RequiredFieldValidator>
+            </div>
+        </div>
+        <div class="rightMiddleColumn">
+            <div>Designation :</div>
+            <div><asp:DropDownList ID="drpdesignations" DataTextField="Name" DataValueField="Id" runat="server" ></asp:DropDownList></div>
+             <asp:RequiredFieldValidator ID="reqdrpdesignations" Display="None" InitialValue="-1" runat="server" ErrorMessage="Please select designation." ControlToValidate="drpdesignations" ValidationGroup="submitapplication"></asp:RequiredFieldValidator>
+                
+        </div>
+    </div>
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <div>office :</div>
+            <div><asp:DropDownList ID="drpOffice" DataTextField="Name" DataValueField="Id" runat="server" ></asp:DropDownList></div>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="None" InitialValue="-1" runat="server" ErrorMessage="Please select office." ControlToValidate="drpOffice" ValidationGroup="submitapplication"></asp:RequiredFieldValidator>
+                
+        </div>
+        <div class="rightMiddleColumn">
+            <div>Grade pay as on 30th November of the Present Year(Rs):</div>
+            <div>
+            <asp:DropDownList id="drpGradePay" runat="server" DataValueField="id" DataTextField="GradePayText"></asp:DropDownList>
+            <%--<asp:TextBox ID="txtGradePay" runat="server" ></asp:TextBox>
+            <asp:CompareValidator ID="cmpgradepay" runat="server" ErrorMessage="Please enter valid grade pay" Operator="DataTypeCheck" ValidationGroup="submitapplication" ControlToValidate="txtGradePay" Type=Double Display="None"></asp:CompareValidator>
+           <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ValidationGroup="submitapplication" runat="server" ControlToValidate="txtGradePay" ErrorMessage="please enter grade pay." Display="None"></asp:RequiredFieldValidator>
+           --%> 
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" 
+                    ErrorMessage="Please select grade pay" ControlToValidate="drpGradePay" 
+                    Display="None" InitialValue="-1" ValidationGroup="submitapplication"></asp:RequiredFieldValidator>
+                                        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Category:</div>
+            <div>
+            <asp:DropDownList ID="drpcategory" runat="server" >
+            <asp:ListItem Value="-1">-select--</asp:ListItem>
+            <asp:ListItem Value="0">SC</asp:ListItem>
+            <asp:ListItem Value="1">ST</asp:ListItem>
+            <asp:ListItem Value="2">Others</asp:ListItem>
+            
+            </asp:DropDownList>            </div>
+        </div>
+        <div class="rightMiddleColumn">
+            <div style="white-space:normal;">Date from which continuously emplyed under Central Government including foreign service. If any i.e. Date of Priority:</div>
+            <div>
+                <asp:TextBox ID="txtEmployedfrom" runat="server"  ></asp:TextBox>
+                <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Please enter valid Date from which continuously emplyed" Operator="DataTypeCheck" ValidationGroup="submitapplication" ControlToValidate="txtEmployedfrom" Type="Date" Display="None"></asp:CompareValidator>
+                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ValidationGroup="submitapplication" runat="server" ControlToValidate="txtEmployedfrom" ErrorMessage="please enter Date from which continuously emplyed." Display="None"></asp:RequiredFieldValidator>
+                <AjaxToolkit:CalendarExtender Format="dd/MM/yyyy" ID="CalendarExtender1" runat="server" TargetControlID="txtEmployedfrom" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Date of Birth :</div>
+            <div>
+                <asp:TextBox ID="txtDob" runat="server"  ></asp:TextBox>
+                <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="Please enter valid Date of birth" Operator="DataTypeCheck" ValidationGroup="submitapplication" ControlToValidate="txtDob" Type="Date" Display="None"></asp:CompareValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ValidationGroup="submitapplication" runat="server" ControlToValidate="txtDob" ErrorMessage="please enter Date of birth." Display="None"></asp:RequiredFieldValidator>
+                <AjaxToolkit:CalendarExtender Format="dd/MM/yyyy" ID="txtDobCalendarExtender" runat="server" TargetControlID="txtDob" />
+            </div>
+        </div>
+        <div class="rightMiddleColumn">
+            <div>Date of Retirement :</div>
+            <div>
+                <asp:TextBox ID="txtDateOfRetirement"  runat="server"  ></asp:TextBox>
+                <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="Please enter valid  Date of Retirement" Operator="DataTypeCheck" ValidationGroup="submitapplication" ControlToValidate="txtDateOfRetirement" Type="Date" Display="None"></asp:CompareValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ValidationGroup="submitapplication" runat="server" ControlToValidate="txtDateOfRetirement" ErrorMessage="please enter Date of Retirement." Display="None"></asp:RequiredFieldValidator>
+              <ajaxtoolkit:calendarextender Format="dd/MM/yyyy" id="txtdateofretirementcalendarextender" runat="server" targetcontrolid="txtdateofretirement" />
+            </div>
+        </div>
+    </div>
+      <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Sex :</div>
+            <div>
+                <asp:DropDownList ID="drpSex" DataTextField="Name" DataValueField="Id" runat="server" >
+                 <asp:ListItem Value="-1">-select--</asp:ListItem>
+                 <asp:ListItem Value="0">Female</asp:ListItem>
+                <asp:ListItem Value="1">Male</asp:ListItem>
+                </asp:DropDownList>
+                
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" 
+                    ErrorMessage="Please select gender type" ControlToValidate="drpSex" 
+                    Display="None" InitialValue="-1" ValidationGroup="submitapplication"></asp:RequiredFieldValidator>
+                
+            </div>
+        </div>
+        <div class="rightMiddleColumn">
+            <div>Whether Temporary/Permanent :</div>
+            <div>
+                <asp:DropDownList ID="drpJobType" DataTextField="Name" DataValueField="Id" runat="server" >
+                <asp:ListItem Value="-1">-select--</asp:ListItem>
+                <asp:ListItem Value="0">Permanent</asp:ListItem>
+                <asp:ListItem Value="1">Temporary</asp:ListItem>
+                </asp:DropDownList>
+                
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" 
+                    ErrorMessage="Please select job type" ControlToValidate="drpJobType" 
+                    Display="None" InitialValue="-1" ValidationGroup="submitapplication"></asp:RequiredFieldValidator>
+                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Are you/your spouse occupying accomodation, in Audit Pool or any order departmental pool :&nbsp;
+            <asp:RadioButton ID="isauditpooyes" GroupName="audit" Text="Y" OnCheckedChanged="isauditpooyes_Checked" runat="server" AutoPostBack="True" /><%-- onclick="javascript:showAudit(1)"--%>
+    <asp:RadioButton ID="isauditpoono" GroupName="audit" Text="N" OnCheckedChanged="isauditpoono_Checked"  runat="server" AutoPostBack="True" Checked="False" /><%--onclick="javascript:showAudit(0)"--%>
+    
+          <%--  <input type="radio" id="isauditpooyes" runat="server" name="audit"  title="Y"  value="yes"/>
+            <input type="radio" id="isauditpoono" runat="server" name="audit" onclick="javascript:showAudit(0)" value="no"/>
+            "display:none"
+          --%>  
+            </div>
+        </div>
+       
+    </div>
+    <div id="auditpool" runat="server">
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Name of allottee :</div>
+            <div> <asp:TextBox ID="txtAuditAllotteName"  runat="server"  ></asp:TextBox></div>
+        </div>
+       
+    </div>
+      <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Already allotted Quarter :</div>
+            <div> <%--<asp:TextBox ID="txtQuartertype"  runat="server"  ></asp:TextBox>--%>
+            <div><asp:DropDownList AutoPostBack="true"     OnSelectedIndexChanged="txtQuarterType_SelectedIndexChanged" ID="txtQuartertype" DataTextField="Name" DataValueField="Id" runat="server" ></asp:DropDownList>
+           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" 
+                    ErrorMessage="Please select already alloted" ControlToValidate="drpQuarterCategory" 
+                    Display="None" InitialValue="-1" ValidationGroup="submitapplication"></asp:RequiredFieldValidator>--%>
+                                        </div>
+                                        </div>
+        </div>
+       
+    </div>
+        <div class="row">
+            <div class="leftMiddleColumn">
+                <div>
+                    Quarter Number :</div>
+                <div>
+                    <asp:DropDownList 
+                        ID="drpAllotedQuarter" DataTextField="QuarterNumber" DataValueField="QuarterNumber" runat="server">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" Display="None" InitialValue="-1" runat="server" ErrorMessage="Please select alloted quarter." ControlToValidate="drpAllotedQuarter" ValidationGroup="submitapplication"></asp:RequiredFieldValidator>
+                
+                    </div>
+            </div>
+            </div>
+          <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Sector or Address in Chandigarh:</div>
+            <div> <asp:TextBox ID="txtAuditAddress"  runat="server"  ></asp:TextBox></div>
+        </div>
+       
+    </div>
+     </div>
+     <div class="row" >
+        <div class="leftMiddleColumn">
+        <asp:LinkButton ID="lnkAddMember" runat="server" Text="Add Member"></asp:LinkButton>
+</div>
+</div>     
+     <div class="row" >
+        <div class="leftMiddleColumn">
+            <div>Number of members residing with you who will continue to do  so on your allotment of Government Accomodation:</div>
+            <div>
+            <asp:GridView ID="grdmembers" runat="server" Width="100%" AutoGenerateColumns="false">
+            <EmptyDataTemplate>
+            no records
+            </EmptyDataTemplate>
+            <Columns>
+            <asp:BoundField HeaderText="Member Name" DataField="MemberName" />
+            <asp:BoundField HeaderText="sex" DataField="sex" />
+            <asp:BoundField HeaderText="Age" DataField="Age" />
+            <asp:BoundField HeaderText="Relationship" DataField="Relationship" />
+            <asp:BoundField HeaderText="isEmployed" DataField="isEmployed" />
+            </Columns>
+            </asp:GridView>
+            
+            </div>
+        </div>
+       
+    </div>
+       <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Have you ever been found to sublet government residence :&nbsp;
+            <asp:RadioButton ID="isSubletTrue" runat="server"  GroupName="sublet" Text="Y" />
+            <%--<input type="radio" id="isSubletTrue" runat="server" name="sublet"   value="yes"/>--%>
+            <asp:RadioButton ID="isSubletFalse" runat="server"  GroupName="sublet" Text="N" />
+            
+            <%--<input type="radio" id="isSubletFalse" runat="server"  name="sublet"  value="no" />--%></div>
+          
+        </div>
+       
+    </div>
+    <div id="sublet" >
+       <div class="row">
+        <div class="leftMiddleColumn">
+            <div>If yes have you been debarred for allottment of government residence :&nbsp;
+            <asp:RadioButton ID="isDebarred" GroupName="Date" Text="Y" onclick="javascript:showbarredDate(1)" runat="server"/>
+            <%--<input type="radio" name="Date"  id="isDebarred" runat="server" onclick="javascript:showbarredDate(1)" value="yes"/>--%>
+            <asp:RadioButton ID="isDebarredNO" GroupName="Date" onclick="javascript:showbarredDate(0)" runat="server" Text="N" />
+            <%--<input type="radio" name="Date" onclick="javascript:showbarredDate(0)" runat="server" id="isDebarredNO" value="no" />--%></div>
+          
+        </div>
+       
+    </div>
+       <div class="row" id="barredDate" style="display:none">
+        <div class="leftMiddleColumn">
+            <div>If yes, upto which date : <asp:TextBox ID="txtDebaredDate"  runat="server"  ></asp:TextBox>
+                <AjaxToolkit:CalendarExtender Format="dd/MM/yyyy" ID="CalendarExtender2" runat="server" TargetControlID="txtDebaredDate" />
+</div>
+        </div>
+       
+    </div>
+    </div>
+    <div class="row">
+       
+        <div class="leftMiddleColumn">
+            <div>Contact Number&nbsp;
+               <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" 
+                    ErrorMessage="Please fill your Contact Number." ControlToValidate="txtContactNumber" 
+                    Display="None"  ValidationGroup="submitapplication"></asp:RequiredFieldValidator>
+               <asp:TextBox ID="txtContactNumber" runat="server"></asp:TextBox>
+        </div>
+        
+        </div>
+     
+     </div>
+    <div class="row">
+     <div class="leftMiddleColumn">
+            <div>&nbsp;
+           <asp:CheckBox ID="chkDeclaration" runat="server"></asp:CheckBox>
+         
+               Declaration
+                 <asp:Label ID="validatedeclaration" Visible="false" ForeColor="Red" runat="server" >* Please tick the declaration</asp:Label>
+ <br />
+    1.  I solemnly affirm and declare that the information given above is correct to the best of my knowledge and no part thereof
+     <br />
+     is false or concealed.
+ <br />
+    2.  I shall abide by the provisions of the RULES FOR ALLOTMENT OF GOVT. RESIDENTIAL ACCOMMODATION AND 
+    <br />
+    DEPARTMENTAL GUEST HOUSES IN IA&AD, 2006 as amended from time to time.
+<br />
+    3.  I am aware of the penalties to be imposed in the event of refusal of acceptance of allotment of 
+    <br />
+    accommodation of the entitled type or furnishing  false information.
+ <br />
+    4.  I am working in eligible office.
+<br />
+        </div>
+        
+        </div></div>
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <center>
+                <div><asp:Button ID="btnUpdate" Text="Add / Update" OnClientClick="return confirmmessage();" CausesValidation="true" ValidationGroup="submitapplication" OnClick="btnUpdate_Click" runat="server" Visible="false"></asp:Button><asp:Button ID="btnAddUpdate" Text="Add / Update" OnClientClick="return confirmmessage();" CausesValidation="true" ValidationGroup="submitapplication" OnClick="btnadd_Click" runat="server" ></asp:Button>&nbsp;&nbsp;&nbsp;<asp:Button ID="btnVerify" Text="Verify" Visible="false" CausesValidation="true" ValidationGroup="submitapplication" OnClick="btnverify_Click" runat="server" ></asp:Button>&nbsp;&nbsp;&nbsp;<asp:Button ID="btnCancel" CausesValidation="false" OnClick="btnCancel_Click" Text="Cancel" runat="server" ></asp:Button></div>
+            </center>
+        </div>
+        <div class="rightMiddleColumn">
+            <center>
+                <div></div>
+            </center>
+        </div>
+    </div>
+</div>
+
+<div id="addmembers" style="border:1px solid black" runat="server" class="popup">
+<asp:ValidationSummary ID="valsummary" runat="server" ValidationGroup="member" ShowMessageBox="true" ShowSummary="false" HeaderText="The form is not submitted due to:"/> 
+
+<table width="100%">
+<tr><td colspan="2" class="header"><div id="Div1">
+<span>Member</span> 
+</div></td></tr>
+<tr><td class="simple_text">Name of the Member</td>
+<td>
+<asp:TextBox ID="txtMemberName" runat="server"></asp:TextBox>
+ <asp:RequiredFieldValidator ID="reqUsername" runat="server" ErrorMessage="Please enter member name" ControlToValidate="txtMemberName" ValidationGroup="member" Display="None"></asp:RequiredFieldValidator>
+</td></tr>
+<tr><td class="simple_text">Age</td><td><asp:TextBox ID="txtMemberAge" runat="server"></asp:TextBox>
+ <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter member Age" ControlToValidate="txtMemberAge" ValidationGroup="member" Display="None"></asp:RequiredFieldValidator>
+ <asp:CompareValidator ID="cmpdate" runat="server" Display="None" Operator="DataTypeCheck" ControlToValidate="txtMemberAge" ErrorMessage="please enter valid age" ValidationGroup="member" Type="Integer"></asp:CompareValidator>
+</td></tr>
+<tr><td class="simple_text">Sex</td>
+<td><asp:DropDownList ID="drpMemberSex" runat="server">
+<asp:ListItem Value="0" Selected="true">Female</asp:ListItem>
+<asp:ListItem Value="1" >Male</asp:ListItem>
+
+</asp:DropDownList></td></tr>
+<tr><td class="simple_text">Relationship of Allottee</td><td><asp:TextBox ID="txtRelationShip" runat="server"></asp:TextBox></td></tr>
+<tr><td class="simple_text">Whether Employed</td><td>
+<asp:RadioButtonList ID="rdbemplyed" runat="server" RepeatColumns="2" RepeatDirection="Horizontal">
+<asp:ListItem Value="0" Selected="true">No</asp:ListItem>
+<asp:ListItem Value="1" >Yes</asp:ListItem>
+</asp:RadioButtonList>
+</td></tr>
+<%--<tr><td class="simple_text">Where Employed</td><td><asp:TextBox ID="txtEmployedLocation" runat="server"></asp:TextBox></td></tr>
+--%><tr><td></td><td><asp:Button ID="btnsaveMember" ValidationGroup="member" runat="server" Text="Save"  OnClick="btnsaveMember_click"/>&nbsp;&nbsp;&nbsp;<asp:Button CausesValidation="false" ID="btnCancemember" runat="server" Text="Cancel" /></td></tr>
+</table>
+</div>
+<AjaxToolkit:ModalPopupExtender ID="pop" runat="server" PopupControlID="addmembers" TargetControlID="lnkAddMember" CancelControlID="btnCancemember" ></AjaxToolkit:ModalPopupExtender>
+</asp:Content>
+

@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class MasterPage1 : System.Web.UI.MasterPage
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            Table1.Visible = true;
+            unauthenticated.Visible = false;
+        }
+        else
+        {
+
+            Table1.Visible = false;
+            unauthenticated.Visible = true;
+        }
+
+    }
+    protected void lnkMenu_Click(object sender, EventArgs e)
+    {
+    }
+    protected void lnklogOut_Click(object sender, EventArgs e)
+    {
+        System.Web.Security.FormsAuthentication.SignOut();
+        Response.Redirect("default.aspx", true);
+    }
+    public void showAddUser()
+    {
+        Adduser.Visible = true;
+    }
+    public void showAddQuater()
+    {
+        addquater.Visible = true;
+    }
+    public void showAddAllottee()
+    {
+        addAllottee.Visible = false;
+    }
+
+}

@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="~/admin/default.aspx" title="Home"  description="Home">
+      <!--<siteMapNode url="~/admin/Submission.aspx" title="Submission"  description="Submission" />-->
+      <siteMapNode url="~/admin/Category.aspx" title="Submission"  description="Submission" />
+
+      <siteMapNode  title="Upload Image"  description="Upload images" >
+        <siteMapNode url="~/admin/UploadImage.aspx" title="Add Image"  description="Upload images" />
+        <siteMapNode url="~/admin/Images.aspx" title="Manage Images"  description="Upload images" />
+      </siteMapNode>
+      
+      <siteMapNode  title="User"  description="User" >
+        <siteMapNode url="~/admin/users.aspx" title="Users"  description="Users" />
+        <siteMapNode url="~/admin/username.aspx" title="Add user"  description="Add user" />
+        <siteMapNode url="~/user/application.aspx" title="Manage applications"  description="Manage applications" />
+
+        <siteMapNode url="  ~/User/ChangePassword.aspx" title="Change Password"  description="Change Password" />
+      </siteMapNode>
+      <siteMapNode url="~/admin/roles.aspx" title="Role"  description="Role" />
+      <siteMapNode  title="Quarters"  description="Quarters" >
+        <siteMapNode url="~/admin/Quarters.aspx" title="Quarters"  description="Quarters" />
+        <siteMapNode url="~/admin/quarter.aspx" title="Add Quarter"  description="Add Quarter" />
+        <siteMapNode url="~/admin/UpdateQuarter.aspx" title="Update Quarter Status"  description="Update Quarter Status" />
+
+      </siteMapNode>
+      <siteMapNode  title="Verify"  description="Verify" url="~/admin/verification.aspx" >
+       
+      </siteMapNode>
+      <siteMapNode  title="View Change Request"  description="View Change Request" url="~/admin/ViewChangeRequest.aspx" >
+        
+
+        </siteMapNode>
+      <siteMapNode  title="View Retented Allottee"  description="View Retented Allottee" url="~/admin/retentedAllottes.aspx" />
+      <siteMapNode  title="Priority List"  description="Priority List" url="~/admin/Prioritizeapplications.aspx" >
+
+      </siteMapNode>
+      <siteMapNode  title="Vacation/Retention"  description="Vacation/Retention" url="~/admin/allottees.aspx" >
+
+      </siteMapNode>
+      <siteMapNode  title="Possessions"  description="Possessions" url="~/admin/possession.aspx" >
+
+      </siteMapNode>
+      <siteMapNode  title="License Fee Recovery"  description="License Fee Recovery" >
+        <siteMapNode  title="License Fee Recovery"  description="License Fee Recovery" url="~/Admin/LicencefeeSubmission.aspx" />
+        <siteMapNode  title="Quarter type License fee"  description="Quarter type License fee" url="~/Admin/AddLicenceFee.aspx" />
+        </siteMapNode>
+      <siteMapNode  title="License Fee Ledger"  description="Licence Fee Ledger" >
+        <siteMapNode  title="View"  description="License Fee Recovery" url="~/Admin/LicenceFeelisting.aspx" />
+        <siteMapNode  title="Quarter Damage Charges"  description="Quarter Damage Charges" url="~/Admin/quarterdamage.aspx" />
+        <siteMapNode  title="Challan Fee"  description="Challan Fee" url="~/Admin/ChallanFee.aspx" />
+      </siteMapNode>
+      <siteMapNode  title="User History"  description="User History" url="~/admin/userHistory.aspx" >
+
+      </siteMapNode>
+      <siteMapNode  title="Quarter History"  description="Quarter History" url="~/admin/QuarterHistory.aspx" >
+
+      </siteMapNode>
+      <siteMapNode  title="Reports"  description="Reports" url="~/reports/default.aspx" >
+        <siteMapNode  title="Vacant Quarter Reports"  description="Vacant Quarter Reports" url="~/reports/VacantQuarter.aspx" >
+
+        </siteMapNode>
+        <siteMapNode  title="Possed Quarter Reports"  description="Possed Quarter Reports" url="~/reports/PossedQuarter.aspx" >
+
+        </siteMapNode>
+
+        <siteMapNode  title="Retented Quarter Reports"  description="Retented Quarter Reports" url="~/reports/retensionquarter.aspx" >
+
+        </siteMapNode>
+
+        <siteMapNode  title="Pending Licence fee Reports"  description="Pending Licence fee Reports" url="~/reports/pendinglicensefee.aspx" >
+
+        </siteMapNode>
+
+        <siteMapNode  title="Challan Report"  description="Challan Report" url="~/reports/ChallanReport.aspx" >
+
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="~/Logout.aspx" title="Logout"  description="Logout" /> 
+    </siteMapNode>
+</siteMap>
+
+

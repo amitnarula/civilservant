@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Admin_ViewChangeRequest : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!Page.IsPostBack)
+        {
+            Bindcategory();
+        }
+    }
+    protected void detail_click(object sender, EventArgs e)
+    {
+        lblMessage.Text = "Applications for Quarter Category: " + drpQuarterCatergory.SelectedItem.Text;
+        lblMessage.Visible = true;
+        BindGrid();
+    }
+    private void Bindcategory()
+    {
+        drpQuarterCatergory.DataSource = Quarters.GetQuarterCategory();
+        drpQuarterCatergory.DataBind();
+    }
+    private void BindGrid()
+    {
+        DataClassesDataContext dataContext = new DataClassesDataContext();
+        var requests = from request in dataContext.tblChangeRequests where request.QuarterCategory==Convert.ToInt32(drpQuarterCatergory.SelectedValue) orderby request.dateofsubmission descending select request;
+        grdQuarters.DataSource = requests.ToList();
+        grdQuarters.DataBind();
+    }
+    protected void gridCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "Allotte")
+        {
+            long id;
+            Int64.TryParse(e.CommandArgument.ToString(), out id);
+            //AllotementApplications.UpdateApplicationStaus(id, ApplicationStatus.Allotted);
+            Response.Redirect("~/admin/Allottee.aspx?ChangeRequestID=" + id + "&returnurl=admin/ViewChangeRequest.aspx");
+        }
+        else if (e.CommandName == "Withdraw")
+        {
+            long id;
+            Int64.TryParse(e.CommandArgument.ToString(), out id);
+            DataClassesDataContext dataContext = new DataClassesDataContext();
+           var requests = from request in dataContext.tblChangeRequests where request.Id == id select request;
+           tblChangeRequest tblreject = requests.FirstOrDefault();
+           if (tblreject != null)
+           {
+               dataContext.tblChangeRequests.DeleteOnSubmit(tblreject);
+               dataContext.SubmitChanges();
+           }
+            BindGrid();
+            // AllotementApplications.UpdateApplicationStaus(id, ApplicationStatus.Pos);
+
+        }
+     
+    }
+}

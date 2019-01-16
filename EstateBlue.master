@@ -1,0 +1,160 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="EstateBlue.master.cs" Inherits="EstateBlue" %>
+
+<!DOCTYPE HTML>
+<html>
+<head runat="server">
+    <title>Estate Management & Allottment System</title>
+    <link href="assets/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <script src="assets/js/jquery.min.js"></script>
+    <!---- start-smoth-scrolling---->
+    <script type="text/javascript" src="assets/js/move-top.js"></script>
+    <script type="text/javascript" src="assets/js/easing.js"></script>
+    <!---- start-smoth-scrolling---->
+    <!-- Custom Theme files -->
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+    <link href="assets/css/theme-style.css" rel='stylesheet' type='text/css' />
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    </script>
+    <link rel="shortcut icon" href="assets/ico/fav-icon.png">
+    <!----webfonts---->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+    <!----//webfonts---->
+    <asp:ContentPlaceHolder ID="phEmsWebAppHead" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+
+        function confirmmessagealert() {
+            if (confirm("Do you want to continue?")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <!-----start-container----->
+    <!----- start-header---->
+    <div id="home" class="header">
+        <div class="col-lg-12">
+            <div class="logo">
+                <a href="#">
+                    <img src="<%=_url %>imgs/logo.png" title="Estate Management & Allotment System" /></a>
+            </div>
+            <div class="logo-tag">
+                <a href="#">
+                    <img src="<%=_url %>imgs/estate-logo.png" title="Estate Management & Allotment System" /></a>
+            </div>
+            <div class="main-heading">
+                <h2>
+                    Office of the Principal Accountant General(Audit) Punjab , Chandigarh</h2>
+            </div>
+            <div class="login-panel-rgt">
+                <a style="float: left; margin-right: 20px;" id="aHrefLogin" runat="server">
+                    <img src="<%=_url %>imgs/login.png" title="Login" /><span><asp:Literal Text="Login" ID="litWelcome" runat="server" /></span></a>
+                <a id="aHrefGuestHouse" runat="server"  style="float: left;">
+                    <img src="<%=_url %>imgs/guest.png" title="Guest House" style="margin-left: 18px;" /><span>Guest
+                        House</span></a>
+                        <a id="aHrefLogout" style="float: left;" runat="server" visible="false"><span>Logout</span></a>
+            </div>
+            <!----start-top-nav---->
+            <div class="clearfix">
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+    </div>
+    <nav class="top-nav">
+  <div class="col-lg-12">
+    <ul class="top-nav">
+      <li class="active"><a href="<%=_url %>default.aspx" class="scroll">Home <span> </span></a></li>
+      <li class="page-scroll"><a href="<%=_url %>aboutus.aspx" class="scroll">About us <span> </span></a></li>
+      <%--<li class="page-scroll"><a href="prioritize-application.html" class="scroll">Prioritize Application <span> </span></a></li>
+      --%>
+      <li class="page-scroll"><a href="<%=_url %>user/application.aspx" class="scroll">Allottment <span> </span></a></li>
+      <li class="page-scroll"><a href="<%=_url %>user/circulars.aspx" class="scroll">Approved priority list<span> </span></a></li>
+      <li class="page-scroll"><a href="<%=_url %>faq.docx" class="scroll">Faq for user<span> </span></a></li>
+      <li class="page-scroll"><a href="<%=_url %>contact.aspx" class="scroll">Contact us </a> </li>
+    </ul>
+    <a href="#" id="pull"><img src="<%=_url %>imgs/nav-icon.png" title="menu" /></a> </div>
+</nav>
+    <!----- //End-header---->
+    <!----//End-slider-script---->
+    <!-- Slideshow 4 -->
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder ID="phEmsWebApp" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+    <div class="clearfix">
+    </div>
+    <!----- //End-slider---->
+    <!-----start-footer---->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-right">
+                <p>
+                    &copy; 2015 - Powered by <a href="#">Estate Management &amp; Allottment System</a></p><div class="links" style="display:none;"> <a href="http://max2019.xyz/">Air Max Pas Cher</a> <a href="http://www.ohkick.com/">Chaussures Nike Jordan</a> <a href="http://www.acquistacleats.com/">Scarpe da calcio Nike Mercurial</a> <a href="http://adidaseqt93.club/">Chaussures Adidas Eqt Support 93/17</a> <a href="http://www.air90suk.cn/">Nike Air Max 95 Cheap Sale</a> <a href="http://www.gomaxsell.com/">Buy Air Max 95 Trainers Online</a> <a href="http://www.qboots.com/">Women's Bailey Bow II Boot</a> <a href="http://www.picksunglasses.xyz/">Cheap Ray Bans Sunglasses Sale</a> <a href="http://www.zscarpe.com/">Scarpe Nike Huarache</a> <a href="http://www.hervelegersale.xyz/">Herve Leger Bikini Replica</a></div>
+                <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;">
+                </span></a>
+            </div>
+            <div class="clearfix">
+            </div>
+        </div>
+    </div>
+    <!-----//End-footer---->
+    <!-----//End-container----->
+</body>
+<script src="assets/js/responsiveslides.min.js"></script>
+<script type="text/javascript">
+    // You can also use "$(window).load(function() {"
+    $(function () {
+        // Slideshow 4
+        $("#slider4").responsiveSlides({
+            auto: true,
+            pager: true,
+            nav: true,
+            speed: 1000,
+            namespace: "callbacks",
+            before: function () {
+                $('.events').append("<li>before event fired.</li>");
+            },
+            after: function () {
+                $('.events').append("<li>after event fired.</li>");
+            }
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $().UItoTop({ easingType: 'easeOutQuart' });
+
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        var pull = $('#pull');
+        menu = $('nav ul');
+        menuHeight = menu.height();
+        $(pull).on('click', function (e) {
+            e.preventDefault();
+            menu.slideToggle();
+        });
+        $(window).resize(function () {
+            var w = $(window).width();
+            if (w > 320 && menu.is(':hidden')) {
+                menu.removeAttr('style');
+            }
+        });
+    });
+</script>
+
+</html>

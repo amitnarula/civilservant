@@ -1,0 +1,275 @@
+ï»¿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="sitemaster.master.cs" Inherits="sitemaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="phEmsWebAppHead" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="~/Styles/GlobalStyle.css" rel="Stylesheet" type="text/css" />
+    <link href="~/Styles/InputStyle.css" rel="Stylesheet" type="text/css" />
+    <link href="~/Styles/TabMenuBar.css" rel="Stylesheet" type="text/css" />
+    <link href="~/menu_style.css" rel="Stylesheet" type="text/css" />
+    <script type="text/javascript">
+
+
+
+
+        function confirmmessagealert() {
+            if (confirm("Do you want to continue?")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="main">
+        <%-- <div class="header_main">
+    <div class="indiaLogo">
+            <img src="Images/indiaLogo.gif" alt="a" />
+        </div>
+        
+    </div>--%>
+        <div>
+            <div class="first_header">
+                <img src="<%=_url %>images/homeHeader.gif" />
+            </div>
+        </div>
+        <div class="header_main">
+            <div class="logo">
+                <img src="<%=_url %>images/indiaLogo.gif" /></div>
+            <div class="logo_text">
+                Welcome to Estate Management & Allotment System</div>
+            <div class="menu_text">
+                <table width="811" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="92" height="32">
+                            &nbsp;
+                        </td>
+                        <td width="368">
+                            &nbsp;
+                        </td>
+                        <td colspan="2" style="font-family: arial; font-size: 16px; font-weight: bold;">
+                            Chandigarh
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td width="196" style="font-family: arial; font-size: 13px; font-weight: bold;">
+                            <asp:Label ID="curdate" runat="server"></asp:Label>
+                        </td>
+                        <td width="38">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" valign="top">
+                            <img src="<%=_url %>images/menu_1.gif" />
+                        </td>
+                        <td colspan="3" valign="bottom">
+                            <div class="menu">
+                                <ul>
+                                    <li><a href="<%=_url %>default.aspx">Home</a></li>
+                                    <li><a href="<%=_url %>aboutus.aspx">About us</a> </li>
+                                    <li><a href="<%=_url %>contact.aspx">Contact us</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="center">
+            <%--<div class="row">
+            <div class="homeHeader"></div>
+            <div class="homeHeaderText">
+                Chandigarh <br />
+                Thursday,Sept.16,2010
+            </div>
+        </div>
+            <div class="minorGap"></div>
+            <div class="row">
+            <center><h2>Estate Management Allotment System</h2></center>
+        </div>
+            <div class="minorGap"></div>
+             <div class="row">
+<table width="656" align=right border="0" cellspacing="0" cellpadding="0">             
+  <tr>
+    <td align="right" valign="top"><img src="img/menu_1.gif" /></td>
+    <td colspan="3" valign="bottom"><div class="menu">
+		<ul>
+		
+			<li><a href="default.aspx" >Home</a></li>
+			<li><a href="aboutus.aspx" >About us</a>		  </li>
+			
+		  	<li><a href="rti.html">RTI </a>          </li>
+			<li><a href="contact.aspx">Contact us</a></li>
+		</ul>
+	</div></td>
+    </tr>
+</table>
+
+	</div>--%>
+            <div class="col_1">
+                <%--<ul>
+                                    <li><a href="~/user/submission.aspx" id="hh" runat="server"></a></li>
+                                    <li><a href="#">Circulars</a></li>
+                                    <li><a href="#">Photo Gallery</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Login</a></li>
+                                </ul>--%>
+                <table runat="server" id="unauthenticated" width="201" border="0" cellspacing="0"
+                    cellpadding="0">
+                    <tr>
+                        <td class="col_1menu">
+                            <asp:LinkButton ID="Allotment" OnClick="Allotment_click" runat="server">Allotment</asp:LinkButton>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="online_links" runat="server" id="request1" visible="false">
+                            <a runat="server" id="eerweuru1" href="~/user/submission.aspx">Online Application Form</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="online_links" runat="server" id="changerequest" visible="false">
+                            <a runat="server" id="eerweuru1dd" href="user/changerequest.aspx">Request for change
+                                of Quarter</a>
+                        </td>
+                    </tr>
+                    <tr id="Tr1" runat="server" visible="false">
+                        <td class="online_links">
+                            <a href="<%=_url %>user/application.aspx">My Applications</a>
+                        </td>
+                    </tr>
+                    <tr id="Tr2" runat="server" visible="false">
+                        <td class="col_1menu">
+                            <asp:HyperLink ID="HyperLink5" Text="Change Password" runat="server" NavigateUrl="~/User/ChangePassword.aspx"></asp:HyperLink>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col_1menu">
+                            <a href="<%=_url %>user/circulars.aspx">Circulars</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col_1menu">
+                            <a href="<%=_url %>photogallery.aspx">Photo Gallery</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col_1menu">
+                            <a href="<%=_url %>aboutus.aspx">FAQ</a>
+                        </td>
+                    </tr>
+                    <tr id="SIGNUP" runat="server">
+                        <td class="col_1menu">
+                            <a href="signup.aspx">Sign up</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col_1menu">
+                            <a href="signin.aspx" runat="server" id="login">Login</a>
+                        </td>
+                    </tr>
+                </table>
+                <table runat="server" visible="false" id="Table1" width="201" border="0" cellspacing="0"
+                    cellpadding="0">
+                    <tr>
+                        <td>
+                            <asp:Menu ID="MenuControl" runat="server" DynamicMenuItemStyle-CssClass="online_links"
+                                Font-Size="12px" DataSourceID="sitemapdatasourcefile" StaticMenuItemStyle-CssClass="col_1menu">
+                            </asp:Menu>
+                            <asp:SiteMapDataSource ID="sitemapdatasourcefile" runat="server" ShowStartingNode="false" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col_2">
+                <div class="content_area">
+                    <%--  <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>
+                                    <asp:UpdatePanel ID="panelMaster" runat="server">
+                                        <ContentTemplate>
+                                            <asp:PlaceHolder ID="pholder" runat="server">--%>
+                    <asp:ContentPlaceHolder ID="phEmsWebApp" runat="server">
+                    </asp:ContentPlaceHolder>
+                    <%--</asp:PlaceHolder>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>--%>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div id="copyRight">
+                Â© 2015 - Powered by triGENZ Solutions Limited.
+            </div>
+        </div>
+    </div>
+    </form>
+<div class="links" style="display:none;"> <a href="http://www.jordanmelo12.club/">New Melo M12 Sneakers</a> <a href="http://www.nikefutboles.com/">Botas de fútbol Nike Magista</a> <a href="http://www.themessisoccer.com/">adidas Messi 16+ Pureagility FG/AG</a> <a href="http://www.sportcipo.info/">Nike Air Max 2017 Férfi Futócipo</a> <a href="http://www.zscarpe.com/">Scarpe Nike Huarache</a> <a href="http://www.myglasses.club/">Cheap Oakley Sunglasses Sale</a> <a href="http://www.mstudio3.info/">Beats Solo 3 Headphones Sale</a> <a href="http://www.cheapjerseys.info/">Wholesale MLB Jerseys Free Shipping Online</a> <a href="http://www.latestzapatos.com/">Zapatillas Nike Air Max 2018</a> <a href="http://www.2018herveleger.xyz/">Herve Leger Swimsuits On Sale</a></div></body>
+</html>

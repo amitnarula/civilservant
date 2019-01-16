@@ -1,0 +1,315 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="EstateBluePrivate.master.cs"
+    Inherits="EstateBluePrivate" %>
+
+<!DOCTYPE HTML>
+<html>
+<head id="Head1" runat="server">
+    <title>Estate Management & Allottment System</title>
+    <link href="assets/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <script src="../assets/js/jquery.min.js"></script>
+    <!---- start-smoth-scrolling---->
+    <script type="text/javascript" src="../assets/js/move-top.js"></script>
+    <script type="text/javascript" src="../assets/js/easing.js"></script>
+    <!---- start-smoth-scrolling---->
+    <!-- Custom Theme files -->
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+    <link href="assets/css/theme-style.css" rel='stylesheet' type='text/css' />
+    <link href="assets/css/accordion.min.css" rel="stylesheet">
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    </script>
+    <link rel="shortcut icon" href="assets/ico/fav-icon.png">
+    <!----webfonts---->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+    <!----//webfonts---->
+    <script src="../assets/js/accordion.min.js"></script>
+    <asp:ContentPlaceHolder ID="phEmsWebAppHead" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+
+        function confirmmessagealert() {
+            if (confirm("Do you want to continue?")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        }
+    </script>
+    <style type="text/css">
+        .accordion-header-active a
+        {
+            color:#fff;
+            text-decoration:none;
+        }
+        .accordion-header-active a:visited
+        {
+            color:#fff;
+            text-decoration:none;
+        }
+        .accordion-header a
+        {
+            color:#333;
+            text-decoration:none;
+        }
+    </style>
+</head>
+<body>
+    <!-----start-container----->
+    <!----- start-header---->
+    <div id="home" class="header">
+        <div class="col-lg-12">
+            <div class="logo">
+                <a href="#">
+                    <img src="<%=_url %>imgs/logo.png" title="Estate Management & Allotment System" /></a>
+            </div>
+            <div class="logo-tag">
+                <a href="#">
+                    <img src="<%=_url %>imgs/estate-logo.png" title="Estate Management & Allotment System" /></a>
+            </div>
+            <div class="main-heading">
+                <h2>
+                    Office of the Principal Accountant General(Audit) Punjab , Chandigarh</h2>
+            </div>
+            <div class="login-panel-rgt">
+                <a href="<%=_url %>signin.aspx" style="float: left; margin-right: 20px;" id="aHrefLogin"
+                    runat="server">
+                    <img src="<%=_url %>imgs/login.png" title="Login" /><span><asp:Literal Text="Login"
+                        ID="litWelcome" runat="server" /></span></a> <a id="aHrefGuestHouse" runat="server"
+                            href="#" style="float: left;">
+                            <img src="<%=_url %>imgs/guest.png" title="Guest House" style="margin-left: 18px;" /><span>Guest
+                                House</span></a> <a id="aHrefLogout" style="float: left;" runat="server" visible="false"
+                                    href="<%=_url %>logout.aspx"><span>Logout</span></a>
+            </div>
+            <!----start-top-nav---->
+            <div class="clearfix">
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+    </div>
+    <nav class="top-nav">
+  <div class="col-lg-12">
+    <ul class="top-nav">
+      <li class="active"><a href="<%=_url %>default.aspx" class="scroll">Home <span> </span></a></li>
+      <li class="page-scroll"><a href="<%=_url %>aboutus.aspx" class="scroll">About us <span> </span></a></li>
+      <%--<li class="page-scroll"><a href="prioritize-application.html" class="scroll">Prioritize Application <span> </span></a></li>
+      --%>
+      <li class="page-scroll"><a href="<%=_url %>user/application.aspx" class="scroll">Allottment <span> </span></a></li>
+      <li class="page-scroll"><a href="<%=_url %>user/circulars.aspx" class="scroll">Approved priority list<span> </span></a></li>
+      <li class="page-scroll"><a href="<%=_url %>faq.docx" class="scroll">Faq for user<span> </span></a></li>
+      <li class="page-scroll"><a href="<%=_url %>contact.aspx" class="scroll">Contact us </a> </li>
+    </ul>
+    <a href="#" id="pull"><img src="<%=_url %>imgs/nav-icon.png" title="menu" /></a> </div>
+</nav>
+    <!----- //End-header---->
+    <!----//End-slider-script---->
+    <!-- Slideshow 4 -->
+    <form id="form1" runat="server">
+    <div id="container">
+        <div id="body" class="width">
+            <aside class="sidebar small-sidebar left-sidebar"> 
+    
+    <asp:panel runat="server" ID="pnlUserNavigation">
+    <div class="accordion">
+        <div class="arrow">
+        <h1><i class="fa fa-upload"></i> Allotment</h1>
+        <div>
+          <ul>
+            <li><a class="selected" runat="server" id="eerweuru1" href="~/user/submission.aspx">Online Application Form</a></li>
+            <li style="display:none;"><a runat="server" id="eerweuru1dd" href="user/changerequest.aspx">Request for change
+                                of Quarter</a></li>
+            <li><a href="<%=_url %>user/application.aspx">My Applications</a></li>
+            
+          </ul>
+        </div>
+      </div>
+      <div class="no-arrow" runat="server" id="Tr2">
+        <h1><i class="fa fa-check-circle-o"></i><asp:HyperLink ID="HyperLink5" Text="Change Password" runat="server" NavigateUrl="~/User/ChangePassword.aspx"></asp:HyperLink> </h1>
+      </div>
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i><a href="<%=_url %>user/circulars.aspx">Approved priority list</a> </h1>
+      </div>
+      <div class="no-arrow" style="display:none;">
+        <h1><i class="fa fa-check-circle-o"></i><a href="<%=_url %>photogallery.aspx">Photo Gallery</a> </h1>
+      </div>
+
+      <div class="no-arrow" style="display:none;">
+        <h1><i class="fa fa-check-circle-o"></i><a href="<%=_url %>aboutus.aspx">FAQ</a></h1>
+        </div>
+
+      <div class="no-arrow" id="SIGNUP" runat="server">
+        <h1><i class="fa fa-check-circle-o"></i>  <a href="signin.aspx" runat="server" id="login">Login</a></h1>
+        </div>
+    </div>
+    </asp:panel>
+
+    <asp:panel runat="server" ID="pnlAdminNavigation">
+
+        <div class="accordion">
+            <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/category.aspx">Submission</a></h1>
+      </div>
+      
+       <div class="arrow">
+        <h1><i class="fa fa-calendar-o"></i> Guest House</h1>
+        <div>
+          <ul>
+            <li><a href="<%=_url %>admin/manageguesthouses.aspx">Pending Requests</a></li>
+            <li><a href="<%=_url %>admin/manageguesthouses.aspx?status=allotted">Booked</a></li>
+          </ul>
+        </div>
+        
+        </div>
+      <%--<div class="arrow">
+        <h1><i class="fa fa-calendar-o"></i> Upload Image</h1>
+        <div>
+          <ul>
+            <li><a class="selected" href="<%=_url %>admin/uploadimage.aspx">Add Image</a></li>
+            <li><a href="<%=_url %>admin/images.aspx">Manage Images</a></li>
+          </ul>
+        </div>
+        
+        </div>--%>
+        <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>user/circulars.aspx">Circulars</a></h1>
+      </div>
+        <div class="arrow">
+        <h1><i class="fa fa-calendar-o"></i> User Management</h1>
+        <div>
+          <ul>
+            <li><a class="selected" href="<%=_url %>admin/users.aspx">Users</a></li>
+            <%--<li><a href="<%=_url %>admin/username.aspx">Add User</a></li>--%>
+            <li><a href="<%=_url %>user/application.aspx">Manage Applications</a></li>
+<li><a href="<%=_url %>user/changepassword.aspx">Change Password</a></li>
+
+          </ul>
+        </div>
+      </div>
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/roles.aspx">Roles</a></h1>
+      </div>
+      <div class="arrow">
+        <h1><i class="fa fa-calendar-o"></i>Quarters</h1>
+        <div>
+          <ul>
+            <li><a href="<%=_url %>admin/quarters.aspx">Quarters</a></li>
+            <li><a href="<%=_url %>admin/quarter.aspx">Add Quarter</a></li>
+            <li><a href="<%=_url %>admin/updatequarter.aspx">Update Quarter Status</a></li>
+          </ul>
+        </div>
+      </div>
+      <%--<div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/verification.aspx">Verify</a></h1>
+      </div>--%>
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/viewchangerequest.aspx">View Change Requests</a></h1>
+      </div>
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/retentedAllottes.aspx">View Retented Allottee</a></h1>
+      </div>
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/Prioritizeapplications.aspx">Priority List</a></h1>
+      </div>
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/Prioritizeapplications.aspx?type=medical">Medical Priority List</a></h1>
+      </div>
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/allottees.aspx">Vacation/Retention</a></h1>
+      </div>
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/possession.aspx">Possessions</a></h1>
+      </div>
+
+      
+
+      <div class="arrow">
+        <h1><i class="fa fa-calendar-o"></i> License Fee Recovery</h1>
+        <div>
+          <ul>
+            <li><a class="selected" href="<%=_url %>Admin/LicencefeeSubmission.aspx">License Fee Recovery</a></li>
+            <li><a href="<%=_url %>Admin/AddLicenceFee.aspx">Quarter type License fee</a></li>
+            
+          </ul>
+        </div>
+      </div>
+      <div class="arrow">
+        <h1><i class="fa fa-calendar-o"></i> License Fee Ledger</h1>
+        <div>
+          <ul>
+            <li><a class="selected" href="<%=_url %>Admin/LicenceFeelisting.aspx">View</a></li>
+            <li><a href="<%=_url %>Admin/quarterdamage.aspx">Quarter Damage Charges</a></li>
+            <li><a href="<%=_url %>Admin/ChallanFee.aspx">Challan Fee</a></li>
+            
+          </ul>
+        </div>
+      </div>
+
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/userhistory.aspx">User History</a></h1>
+      </div>
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>admin/quarterhistory.aspx">Quarter History</a></h1>
+      </div>
+
+      <div class="arrow">
+        <h1><i class="fa fa-calendar-o"></i><a href="<%=_url %>reports/default.aspx"> Reports</a></h1>
+        <div>
+          <ul>
+            <li><a class="selected" href="<%=_url %>reports/VacantQuarter.aspx">Vacant Quarter Reports</a></li>
+            <li><a href="<%=_url %>reports/PossedQuarter.aspx">Possed Quarter Reports</a></li>
+            <li><a href="<%=_url %>reports/retensionquarter.aspx">Retented Quarter Reports</a></li>
+            <li><a href="<%=_url %>reports/pendinglicensefee.aspx">Pending Licence fee Reports</a></li>
+            <li><a href="<%=_url %>reports/ChallanReport.aspx">Challan Report</a></li>
+            
+          </ul>
+        </div>
+      </div>
+
+      <div class="no-arrow">
+        <h1><i class="fa fa-check-circle-o"></i> <a href="<%=_url %>logout.aspx">Logout</a></h1>
+      </div>
+      </div>
+        <asp:Menu Visible="false" ID="MenuControl" runat="server" DynamicMenuItemStyle-CssClass="online_links accordion"
+                                Font-Size="12px" DataSourceID="sitemapdatasourcefile" StaticMenuItemStyle-CssClass="col_1menu">
+                            </asp:Menu>
+                            <asp:SiteMapDataSource ID="sitemapdatasourcefile" runat="server" ShowStartingNode="false" />
+    </asp:panel>
+
+  </aside>
+  <section id="content" class="one-column with-left-sidebar">
+  <article>
+            <asp:ContentPlaceHolder ID="phEmsWebApp" runat="server">
+            </asp:ContentPlaceHolder>
+            </article>
+            </section>
+        </div>
+    </div>
+    </form>
+    <div class="clearfix">
+    </div>
+    <!----- //End-slider---->
+    <!-----start-footer---->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-right">
+                <p>
+                    &copy; 2015 - Powered by <a href="#">Estate Management &amp; Allottment System</a></p><div class="links" style="display:none;"> <a href="http://www.jordanmelo12.club/">New Melo M12 Sneakers</a> <a href="http://www.kaufenfubball.com/">Nike Hypervenom </a> <a href="http://350v2.club/">Adidas yeezy 350 Pas Cher</a> <a href="http://www.stephly.com/">Off-White x Nike 2018 Collection</a> <a href="http://www.2018herveleger.xyz/">Herve Leger Swimsuits On Sale</a> <a href="http://www.rabattkaufen.club/">Puma Turbo</a> <a href="http://www.cheaphldress.space/">Herve Leger Dress Online</a> <a href="http://www.airjordanzapatillas.cn/">Air Jordan Baratas</a> <a href="http://tnrequin.space/">Chaussures Nike Air Max Tn</a> <a href="http://www.ordershoes.club/">Nike Air Huarache Ultra</a></div>
+                <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;">
+                </span></a>
+            </div>
+            <div class="clearfix">
+            </div>
+        </div>
+    </div>
+    <!-----//End-footer---->
+    <!-----//End-container----->
+</body>
+<script src="assets/js/responsiveslides.min.js"></script>
+<script type="text/javascript">
+    $(".accordion").accordion();
+</script>
+</html>

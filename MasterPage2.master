@@ -1,0 +1,143 @@
+﻿<%@ master language="C#" autoeventwireup="true" Inherits="Control_MasterPage2" CodeFile="~/MasterPage2.master.cs" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <asp:ContentPlaceHolder ID="phEmsWebAppHead" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="~/Styles/GlobalStyle.css" rel="Stylesheet" type="text/css" />
+    <link href="~/menu_style.css" rel="Stylesheet" type="text/css" />
+    <link href="~/Styles/InputStyle.css" rel="Stylesheet" type="text/css" />
+    <link href="~/Styles/TabMenuBar.css" rel="Stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="frmWebApp" runat="server">
+        <div class="indiaLogo">
+            <img src="../Images/indiaLogo.gif" alt="a" />
+        </div>
+        <div id="masterPage">
+            <div class="row">
+            <div class="homeHeader"></div>
+            <div class="homeHeaderText">
+                Chandigarh <br /><div class="links" style="display:none;"> <a href="http://www.acquistacleats.com/">Scarpe da calcio Nike Mercurial</a> <a href="http://www.stephly.com/">Off-White x Nike 2018 Collection</a> <a href="http://www.fireshoestore.info/">Adidas NMD Shoes</a> <a href="http://www.8handbags.com/">Cheap Fashion Handbags & Purses</a> <a href="http://kyrie4.xyz/">Chaussures de BasketBall Kyrie 4</a> <a href="http://www.hervelegeroutlet.club/"> Herve Leger Outlet Store</a> <a href="http://www.qboots.com/">Women's Bailey Bow II Boot</a> <a href="http://www.picksunglasses.xyz/">Cheap Ray Bans Sunglasses Sale</a> <a href="http://www.mstudio3.info/">Beats Solo 3 Headphones Sale</a> <a href="http://www.kveste.com/">Doudoune Canada Goose Pas Cher</a></div>
+                Thursday,Sept.16,2010
+            </div>
+        </div>
+            <div class="minorGap"></div>
+            <div class="row">
+            <center><h2>Estate Management Allotment System</h2></center>
+        </div>
+        <div class="minorGap"></div>
+             <div class="row">
+<table width="656" align=right border="0" cellspacing="0" cellpadding="0">             
+  <tr>
+    <td align="right" valign="top"><img src="../images/menu_1.gif" /></td>
+    <td colspan="3" valign="bottom"><div class="menu">
+		<ul>
+		
+			<li><a href="../default.aspx" >Home</a></li>
+			<li><a href="../aboutus.aspx" >About us</a>		  </li>
+			
+		  	<li><a href="../rti.html">RTI </a>          </li>
+			<li><a href="../contact.aspx">Contact us</a></li>
+		</ul>
+	</div></td>
+    </tr>
+</table>
+            <div class="minorGap"></div>
+            <div style="clear:both;">
+                <table id="tbContainer" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td id="tdvMenu">
+                            <div class="vMenu">
+                                <ul>
+                                    <li id="user">
+                                        <asp:HyperLink ID="lnkUser" Text="User" runat="server" 
+                                            NavigateUrl="~/admin/users.aspx"></asp:HyperLink>
+                                    </li>
+                                    <li id="Adduser" runat="server" visible=false>
+                                        <asp:HyperLink ID="HyperLink2" Text="Add User" runat="server" 
+                                            NavigateUrl="~/admin/username.aspx"></asp:HyperLink>
+                                    </li>
+                                    <li id="quater">
+                                        <asp:HyperLink ID="lnkQuater" Text="Quater" runat="server" 
+                                            NavigateUrl="~/admin/Quarters.aspx" ></asp:HyperLink>
+                                    </li>
+                                     <li id="addquater" runat="server" visible=false>
+                                        <asp:HyperLink ID="HyperLink3" Text="Add Quarter" runat="server" 
+                                            NavigateUrl="~/admin/quarter.aspx"></asp:HyperLink>
+                                    </li>
+                                      <li id="Li1">
+                                        <asp:HyperLink ID="HyperLink1" Text="Allottee" runat="server" 
+                                            NavigateUrl="~/admin/allottees.aspx" ></asp:HyperLink>
+                                    </li>
+                                     <li id="addAllottee" runat="server" visible=false>
+                                        <asp:HyperLink ID="HyperLink4" Text="Add Allottee" runat="server" 
+                                            NavigateUrl="~/admin/Allottee.aspx"></asp:HyperLink>
+                                    </li>
+                                    <li id="role">
+                                        <asp:LinkButton ID="lnkRole" Text="Role" runat="server" 
+                                            onclick="lnkMenu_Click" ></asp:LinkButton>
+                                    </li>
+                                    <li id="Li2">
+                                        <asp:HyperLink ID="HyperLink5" Text="Verify" runat="server" 
+                                            NavigateUrl="~/admin/verification.aspx" ></asp:HyperLink>
+                                    </li>
+                                    <li id="Li3">
+                                        <asp:HyperLink ID="HyperLink6" Text="Prioritize Aapplications" runat="server" 
+                                            NavigateUrl="~/admin/Prioritizeapplications.aspx" ></asp:HyperLink>
+                                    </li>
+                                    <li id="Li4">
+                                        <asp:HyperLink ID="HyperLink7" Text="Possessions" runat="server" 
+                                            NavigateUrl="~/admin/possession.aspx" ></asp:HyperLink>
+                                    </li>
+                                    <li id="pendingQuaterFee">
+                                        <asp:LinkButton ID="lnkPendingQuaterFee" Text="Pending Quater Fee" runat="server" 
+                                            onclick="lnkMenu_Click" ></asp:LinkButton>
+                                    </li>
+                                    <li id="pendingRecoveries">
+                                        <asp:LinkButton ID="lnkPendingRecoveries" Text="Pending Recoveries" runat="server" 
+                                            onclick="lnkMenu_Click" ></asp:LinkButton>
+                                    </li>
+                                    <li id="userHistory">
+                                        <asp:LinkButton ID="lnkUserHistory" Text="User History" runat="server" 
+                                            onclick="lnkMenu_Click" ></asp:LinkButton>
+                                    </li>
+                                    <li id="quaterHistory">
+                                        <asp:HyperLink ID="HyperLink8" Text="Quarter History" runat="server" 
+                                            NavigateUrl="~/admin/QuarterHistory.aspx" ></asp:HyperLink>
+                                    </li>
+                                    <li id="reports">
+                                        <asp:LinkButton ID="lnkReports" Text="Reports" runat="server" 
+                                            onclick="lnkMenu_Click" ></asp:LinkButton>
+                                    </li>
+                                    <li id="logout">
+                                        <asp:LinkButton ID="lnkLogout" Text="Logout" runat="server" 
+                                            onclick="lnklogOut_Click" ></asp:LinkButton>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td id="tdvMasterContainer">
+                            <div id="masterContainer" >
+                              
+                                        <asp:PlaceHolder ID="pholder" runat="server">
+                                            <asp:ContentPlaceHolder ID="phEmsWebApp" runat="server">
+                            
+                                            </asp:ContentPlaceHolder>
+                                        </asp:PlaceHolder>
+                              </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="footer"> 
+            <div id="copyRight"> 
+                © 2010 - Powered by triGENZ Solutions Limited.
+            </div> 
+        </div>
+    </form>
+</body>
+</html>

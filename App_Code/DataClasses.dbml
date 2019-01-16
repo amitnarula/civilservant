@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="trigenz_estatepagpb" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(local);Initial Catalog=trigenz_estatepagpb;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="EMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tblRoles" Member="tblRoles">
+    <Type Name="tblRole">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="tblRole_tblRoleRModule" Member="tblRoleRModules" ThisKey="Id" OtherKey="Roleid" Type="tblRoleRModule" />
+      <Association Name="tblRole_tblUser" Member="tblUsers" ThisKey="Id" OtherKey="Roleid" Type="tblUser" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblQuarterFloors" Member="tblQuarterFloors">
+    <Type Name="tblQuarterFloor">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="tblQuarterFloor_tblQuarter" Member="tblQuarters" ThisKey="Id" OtherKey="Floor" Type="tblQuarter" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRoles" Member="tblRole1s">
+    <Type Name="tblRole1">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="tblRole1_tblRoleRModule" Member="tblRoleRModules" ThisKey="Id" OtherKey="Roleid" Type="tblRoleRModule" />
+      <Association Name="tblRole1_tblUser" Member="tblUsers" ThisKey="Id" OtherKey="Roleid" Type="tblUser" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblModules" Member="tblModules">
+    <Type Name="tblModule">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="tblModule_tblRoleRModule" Member="tblRoleRModules" ThisKey="id" OtherKey="ModuleId" Type="tblRoleRModule" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblOffices" Member="tblOffices">
+    <Type Name="tblOffice">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="officeCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="tblOffice_tbAllotmentApplication" Member="tbAllotmentApplications" ThisKey="Id" OtherKey="OfficeId" Type="tbAllotmentApplication" />
+      <Association Name="tblOffice_tblUser" Member="tblUsers" ThisKey="Id" OtherKey="BaseOfficeId" Type="tblUser" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblQuarterHistory" Member="tblQuarterHistories">
+    <Type Name="tblQuarterHistory">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AAN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QuarterNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="tblQuarter_tblQuarterHistory" Member="tblQuarter" ThisKey="QuarterNumber" OtherKey="QuarterNumber" Type="tblQuarter" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRoleRModule" Member="tblRoleRModules">
+    <Type Name="tblRoleRModule">
+      <Column Name="Roleid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModuleId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="tblModule_tblRoleRModule" Member="tblModule" ThisKey="ModuleId" OtherKey="id" Type="tblModule" IsForeignKey="true" />
+      <Association Name="tblRole_tblRoleRModule" Member="tblRole" ThisKey="Roleid" OtherKey="Id" Type="tblRole" IsForeignKey="true" />
+      <Association Name="tblRole1_tblRoleRModule" Member="tblRole1" ThisKey="Roleid" OtherKey="Id" Type="tblRole1" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblDesignations" Member="tblDesignations">
+    <Type Name="tblDesignation">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="tblDesignation_tbAllotmentApplication" Member="tbAllotmentApplications" ThisKey="Id" OtherKey="Designation" Type="tbAllotmentApplication" />
+      <Association Name="tblDesignation_tblUser" Member="tblUsers" ThisKey="Id" OtherKey="designation" Type="tblUser" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbLicenceFee" Member="tbLicenceFees">
+    <Type Name="tbLicenceFee">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuarterType" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Fee" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Month" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastUpdatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LastUpdatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActualFee" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Balance" Type="System.Decimal" DbType="Decimal(19,2)" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="tblQuarterCategory_tbLicenceFee" Member="tblQuarterCategory" ThisKey="QuarterType" OtherKey="Id" Type="tblQuarterCategory" IsForeignKey="true" />
+      <Association Name="tblUser_tbLicenceFee" Member="tblUser" ThisKey="LastUpdatedBy" OtherKey="Id" Type="tblUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblGradePay" Member="tblGradePays">
+    <Type Name="tblGradePay">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GradePay" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="GradePayText" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QuarterType" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="tblQuarterCategory_tblGradePay" Member="tblQuarterCategory" ThisKey="QuarterType" OtherKey="Id" Type="tblQuarterCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="trigenz_trigenz.tblMembers" Member="tblMembers">
+    <Type Name="tblMember">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="MemberName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Age" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="isEmployed" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Relationship" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="tbAllotmentApplication_tblMember" Member="tbAllotmentApplication" ThisKey="ApplicationId" OtherKey="ID" Type="tbAllotmentApplication" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbQuarterLicenceFee" Member="tbQuarterLicenceFees">
+    <Type Name="tbQuarterLicenceFee">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuarterId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Fee" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Month" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastUpdatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LastUpdatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AAN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ActualFee" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Balance" Type="System.Decimal" DbType="Decimal(19,2)" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Remarks" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Association Name="tbQuarterLicenceFee_tbQuarterLicenceFee" Member="tbQuarterLicenceFee2" ThisKey="id" OtherKey="id" Type="tbQuarterLicenceFee" Cardinality="One" />
+      <Association Name="tbQuarterLicenceFee_tbQuarterLicenceFee" Member="tbQuarterLicenceFee1" ThisKey="id" OtherKey="id" Type="tbQuarterLicenceFee" IsForeignKey="true" />
+      <Association Name="tblQuarter_tbQuarterLicenceFee" Member="tblQuarter" ThisKey="QuarterId" OtherKey="Id" Type="tblQuarter" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblQuarterCategoryFee" Member="tblQuarterCategoryFees">
+    <Type Name="tblQuarterCategoryFee">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuarterCategoryId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LicenceFee" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EffectiveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tblQuarterCategory_tblQuarterCategoryFee" Member="tblQuarterCategory" ThisKey="QuarterCategoryId" OtherKey="Id" Type="tblQuarterCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblImages" Member="tblImages">
+    <Type Name="tblImage">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Imagepath" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbluserhistory" Member="tbluserhistories">
+    <Type Name="tbluserhistory">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Action" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+      <Column Name="useraan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="trigenz_trigenz.tbquarterDamages" Member="tbquarterDamages">
+    <Type Name="tbquarterDamage">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Quarternumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AAN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DamageCharges" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Assementdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="trigenz_trigenz.tbChallan" Member="tbChallans">
+    <Type Name="tbChallan">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AAN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ChallanNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BankName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateRecevied" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Payment" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="QuarterNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblQuarterCategory" Member="tblQuarterCategories">
+    <Type Name="tblQuarterCategory">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="tblQuarterCategory_tbLicenceFee" Member="tbLicenceFees" ThisKey="Id" OtherKey="QuarterType" Type="tbLicenceFee" />
+      <Association Name="tblQuarterCategory_tblGradePay" Member="tblGradePays" ThisKey="Id" OtherKey="QuarterType" Type="tblGradePay" />
+      <Association Name="tblQuarterCategory_tblQuarterCategoryFee" Member="tblQuarterCategoryFees" ThisKey="Id" OtherKey="QuarterCategoryId" Type="tblQuarterCategoryFee" />
+      <Association Name="tblQuarterCategory_tblQuarter" Member="tblQuarters" ThisKey="Id" OtherKey="Category" Type="tblQuarter" />
+      <Association Name="tblQuarterCategory_tbAllotmentApplication" Member="tbAllotmentApplications" ThisKey="Id" OtherKey="QuarterCategory" Type="tbAllotmentApplication" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblQuarters" Member="tblQuarters">
+    <Type Name="tblQuarter">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuarterNumber" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Floor" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateOfAllottement" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfVacation" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="tblQuarter_tblQuarterHistory" Member="tblQuarterHistories" ThisKey="QuarterNumber" OtherKey="QuarterNumber" Type="tblQuarterHistory" />
+      <Association Name="tblQuarter_tbQuarterLicenceFee" Member="tbQuarterLicenceFees" ThisKey="Id" OtherKey="QuarterId" Type="tbQuarterLicenceFee" />
+      <Association Name="tblQuarter_tbAllotmentApplication" Member="tbAllotmentApplications" ThisKey="QuarterNumber" OtherKey="QuarterNumber" Type="tbAllotmentApplication" />
+      <Association Name="tblQuarter_tblAllottee" Member="tblAllottees" ThisKey="QuarterNumber" OtherKey="QuarterNumber" Type="tblAllottee" />
+      <Association Name="tblQuarterCategory_tblQuarter" Member="tblQuarterCategory" ThisKey="Category" OtherKey="Id" Type="tblQuarterCategory" IsForeignKey="true" />
+      <Association Name="tblQuarterFloor_tblQuarter" Member="tblQuarterFloor" ThisKey="Floor" OtherKey="Id" Type="tblQuarterFloor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbAllotmentApplications" Member="tbAllotmentApplications">
+    <Type Name="tbAllotmentApplication">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Userid" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Designation" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="OfficeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GradePay" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PayBand" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfjoining" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Sex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JobType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsOtherAccomendation" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="OtherQuarterNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="OtherQuarterType" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="OtherQuarterAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="IsSublet" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsDebarred" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DebarredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuarterCategory" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="QuarterNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Cast" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SubmissionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OtherAllotteName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ContactNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MedicalCategory" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbAllotmentApplication_tblMember" Member="tblMembers" ThisKey="ID" OtherKey="ApplicationId" Type="tblMember" />
+      <Association Name="tblDesignation_tbAllotmentApplication" Member="tblDesignation" ThisKey="Designation" OtherKey="Id" Type="tblDesignation" IsForeignKey="true" />
+      <Association Name="tblOffice_tbAllotmentApplication" Member="tblOffice" ThisKey="OfficeId" OtherKey="Id" Type="tblOffice" IsForeignKey="true" />
+      <Association Name="tblQuarterCategory_tbAllotmentApplication" Member="tblQuarterCategory" ThisKey="QuarterCategory" OtherKey="Id" Type="tblQuarterCategory" IsForeignKey="true" />
+      <Association Name="tblQuarter_tbAllotmentApplication" Member="tblQuarter" ThisKey="QuarterNumber" OtherKey="QuarterNumber" Type="tblQuarter" IsForeignKey="true" />
+      <Association Name="tblUser_tbAllotmentApplication" Member="tblUser" ThisKey="Userid" OtherKey="Id" Type="tblUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblCategoryWorkflow" Member="tblCategoryWorkflows">
+    <Type Name="tblCategoryWorkflow">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblUsers" Member="tblUsers">
+    <Type Name="tblUser">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AAN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="fullName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EmailID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Roleid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BaseOfficeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateOfJoining" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfRetirement" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Addressline1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Addressline2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ZipCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Stateid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StatusId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastLoggedin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastmodifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="designation" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bIsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EmployeeCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="IsPasswordChanged" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AadharNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PanNumber" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="IsDebarred" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefferred" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DebarUntil" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeferUntil" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tblUser_tbLicenceFee" Member="tbLicenceFees" ThisKey="Id" OtherKey="LastUpdatedBy" Type="tbLicenceFee" />
+      <Association Name="tblUser_tbAllotmentApplication" Member="tbAllotmentApplications" ThisKey="Id" OtherKey="Userid" Type="tbAllotmentApplication" />
+      <Association Name="tblDesignation_tblUser" Member="tblDesignation" ThisKey="designation" OtherKey="Id" Type="tblDesignation" IsForeignKey="true" />
+      <Association Name="tblOffice_tblUser" Member="tblOffice" ThisKey="BaseOfficeId" OtherKey="Id" Type="tblOffice" IsForeignKey="true" />
+      <Association Name="tblRole_tblUser" Member="tblRole" ThisKey="Roleid" OtherKey="Id" Type="tblRole" IsForeignKey="true" />
+      <Association Name="tblRole1_tblUser" Member="tblRole1" ThisKey="Roleid" OtherKey="Id" Type="tblRole1" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblAllottee" Member="tblAllottees">
+    <Type Name="tblAllottee">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AAN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QuarterNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ApplicationId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateOfPossession" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfRetension" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfVacation" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfAllotement" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfwithdraw" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfRetensionUpto" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RetentionReason" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Association Name="tblQuarter_tblAllottee" Member="tblQuarter" ThisKey="QuarterNumber" OtherKey="QuarterNumber" Type="tblQuarter" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblGuestHouses" Member="tblGuestHouses">
+    <Type Name="tblGuestHouse">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EmailID" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GuestHouse" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateFrom" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateTo" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PurposeOfVisit" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsStaff" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsEmployee" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Designation" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PlaceOfHosting" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MobileNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TypeOfAccomodation" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumberOfRooms" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumberOfPeople" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsSelf" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsGuest" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="OfficeID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="BalanceDue" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="RoomName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsPaid" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="trigenz_trigenz.tblChangeRequests" Member="tblChangeRequests">
+    <Type Name="tblChangeRequest">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AAN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QuarterCategory" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstPerference" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SecondPerference" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ThirdPerference" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QuarterNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="dateofsubmission" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.uspGetQuarter" Method="uspGetQuarter">
+    <Parameter Name="category" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="uspGetQuarterResult">
+      <Column Name="quarternumber" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="designation" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="office" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fullname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateOfPossession" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfVacation" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfAllotement" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.uspQuarterHistory" Method="uspQuarterHistory">
+    <Parameter Name="QuarterNumber" Parameter="quarterNumber" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="uspQuarterHistoryResult">
+      <Column Name="quarternumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Office" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="aan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="designation" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="trigenz_trigenz.uspGetLicenceFee" Method="uspGetLicenceFee">
+    <Parameter Name="quarterNumber" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="uspGetLicenceFeeResult">
+      <Column Name="fee" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Month" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Balance" Type="System.Decimal" DbType="Decimal(19,2)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="ActualFee" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.uspGetAllotte" Method="uspGetAllotte">
+    <Parameter Name="status" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="category" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="uspGetAllotteResult">
+      <Column Name="quarternumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Office" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="aan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="designation" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateOfPossession" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfVacation" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfAllotement" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dateofretension" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfRetensionUpto" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.uspGetAllotedUsers" Method="uspGetAllotedUsers">
+    <Parameter Name="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="category" Type="System.Int32" DbType="Int" />
+    <ElementType Name="uspGetAllotedUsersResult">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Userid" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Designation" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="OfficeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DesignationName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QuarterCategoryName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GradePay" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PayBand" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateOfjoining" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Sex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fullName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AAN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="JobType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsOtherAccomendation" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="OtherQuarterNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="OtherQuarterType" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="OtherQuarterAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="IsSublet" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsDebarred" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DebarredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuarterCategory" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Cast" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SubmissionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OtherAllotteName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QuarterNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateOfAllotement" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

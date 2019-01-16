@@ -1,0 +1,45 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="role.aspx.cs" Inherits="Admin_role" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="phEmsWebAppHead" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="phEmsWebApp" Runat="Server">
+<div class="contentContainer">
+<div id="managerContainerHeader">
+<SPAN >Role</SPAN> 
+</div>
+
+<br /><br />
+<div class="row">
+    <div class="leftMiddleColumn">
+            <div>Role:</div>
+            <div><asp:Label ID="txtAllotteeName" runat="server" ></asp:Label></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <div>Module :</div>
+            
+        </div>
+        
+    </div>
+    
+    <div class="row">
+       <asp:CheckBoxList ID="ChkModules" runat="server" RepeatColumns="5" RepeatDirection="Horizontal" DataTextField="Name" DataValueField="Id"></asp:CheckBoxList>
+    </div>
+
+    <div class="row"></div>
+    <div class="row">
+        <div class="leftMiddleColumn">
+            <center>
+                <div><asp:Button ID="btnAddUpdate" Text="Add / Update" OnClick="btnadd_Click" runat="server" ></asp:Button>&nbsp;&nbsp;&nbsp;<asp:Button ID="btnCancel" OnClick="btnCancel_Click" Text="Cancel" runat="server" ></asp:Button></div>
+            </center>
+        </div>
+        <div class="rightMiddleColumn">
+            <center>
+                <div></div>
+            </center>
+        </div>
+    </div>
+</div>
+</asp:Content>
+

@@ -1,0 +1,584 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+public partial class User_Submission : System.Web.UI.Page
+{
+    long applicationid;
+    bool isverification = false;
+   
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Request["applicationid"] != null)
+        {
+            long.TryParse(Request["applicationid"], out applicationid);
+            if (applicationid > 0)
+            {
+                btnCancel.Text = "OK";
+                if (!Page.IsPostBack)
+                {
+                    btnAddUpdate.Visible = false;
+                
+                    BindApplicationData();
+
+                }
+            }
+
+        }
+        if (Request["verify"] != null)
+        {
+            bool.TryParse(Request["verify"], out isverification);
+            btnVerify.Visible = true;
+            if (isverification)
+            {
+                btnCancel.Text = "Cancel";
+                if (!Page.IsPostBack)
+                {
+                    
+                    btnAddUpdate.Visible = false;
+                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        tblUser _user = Users.getUserByUserName(HttpContext.Current.User.Identity.Name);
+                        if (_user.Roleid.ToString().ToLower() == "1")
+                        {
+                            btnUpdate.Visible = true;
+                        }
+                    }
+                    BindApplicationData();
+                }
+            }
+
+        }
+        if (applicationid <= 0)
+        {
+            DataSet ds = new DataSet();
+            ds.ReadXml(Server.MapPath("~/submissionVerfication.xml"));
+            DataTable dt = ds.Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                if (!Convert.ToBoolean(dt.Rows[0][0]))
+                {
+                    //Server.Transfer("~/user/SubmissionClosed.aspx");
+                }
+            }
+        }
+        lblmessage.Visible = false;
+
+        if (isauditpooyes.Checked == true)
+        {
+            auditpool.Visible = true;
+        }
+        else
+        {
+            isauditpoono.Checked = true;
+            auditpool.Visible = false;
+        }
+     //   System.Web.UI.Control auditpool = (System.Web.UI.Control)this.Page.FindControl("auditpool");
+      //  if (auditpool is System.Web.UI.HtmlControls.HtmlGenericControl)
+        //{
+          //  System.Web.UI.HtmlControls.HtmlGenericControl htmlCtrl = (System.Web.UI.HtmlControls.HtmlGenericControl)auditpool;            
+            //htmlCtrl.Attributes["style"] = "display:block";
+       // }
+
+        
+        if (!Page.IsPostBack)
+        {
+            Bindoffice();
+            BindDesignations();
+            BindQuarterCategory();
+            bindAAN();
+            BindAllottedQuarter();
+            BindAllottedQuarterNumbers();
+            BindGradePay();
+            Session["members"] = null;
+         
+
+        }
+    }
+    private void BindGradePay()
+    {
+        drpGradePay.DataSource = GradePay.GetPayGradesByCategroy(Convert.ToInt64(drpQuarterCategory.SelectedValue));
+        drpGradePay.DataBind();
+        drpGradePay.Items.Insert(0, new ListItem("-select--", "-1"));
+           
+    }
+    protected void drpQuarterCategory_selectedindex(object sender, EventArgs e)
+    {
+        BindGradePay();
+    }
+    private void bindAAN()
+    {
+        if (applicationid <= 0)
+        {
+            tblUser _usr=Users.getUserByUserName(HttpContext.Current.User.Identity.Name);
+            txtAAN.Text = _usr.AAN;
+            txtUsername.Text = _usr.fullName;
+            if(_usr.BaseOfficeId.HasValue)
+            drpOffice.SelectedValue = _usr.BaseOfficeId.Value.ToString();
+            if (_usr.designation.HasValue)
+                drpdesignations.SelectedValue = _usr.designation.Value.ToString();
+        }
+        else
+        {
+            txtAAN.Text = AllotementApplications.GetApplication(applicationid).tblUser.AAN;
+        }
+
+    }
+    private void BindQuarterCategory()
+    {
+        drpQuarterCategory.DataSource = Quarters.GetQuarterCategory();
+        drpQuarterCategory.DataBind();
+        drpQuarterCategory.Items.Insert(0, new ListItem("-select--", "-1"));
+    }
+
+    private void BindAllottedQuarter()
+    {
+        txtQuartertype.DataSource = Quarters.GetQuarterCategory();
+        if (txtQuartertype.SelectedIndex != -1)
+        {
+
+            txtQuartertype.DataBind();
+            txtQuartertype.Items.Insert(0, new ListItem("-select--", "-1"));
+        }
+    }
+    private void BindAllottedQuarterNumbers()
+    {
+        if (drpAllotedQuarter.SelectedValue != "")
+        {
+            drpAllotedQuarter.DataSource = Quarters.GetAllAllotedQuarters(txtQuartertype.SelectedIndex);
+            drpAllotedQuarter.DataBind();
+        }
+        //  
+        if (drpAllotedQuarter.Items.Count <= 0)
+            {
+                drpAllotedQuarter.Items.Insert(0, new ListItem("-select--", "-1"));
+            }
+        
+    }
+    protected void btnadd_Click(object sender, EventArgs e)
+    {
+        if (chkDeclaration.Checked == true)
+        {
+            validatedeclaration.Visible = false;
+            tbAllotmentApplication application;
+            if (applicationid <= 0)
+            {
+                DataSet ds = new DataSet();
+                ds.ReadXml(Server.MapPath("~/submissionVerfication.xml"));
+                DataTable dt = ds.Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    if (!Convert.ToBoolean(dt.Rows[0][0]))
+                    {
+                        lblmessage.Text = "Application submission has been closed";
+                        lblmessage.Visible = true;
+                        return;
+                    }
+                }
+                application = AllotementApplications.GetApplicationByAAN(Users.getUserByUserName(HttpContext.Current.User.Identity.Name).AAN);
+                if (application == null)
+                {
+                    application = new tbAllotmentApplication();
+                    application.SubmissionDate = DateTime.Now;
+                }
+                else
+                {
+                    lblmessage.Text = "Only one application can be submitted!";
+                    lblmessage.Visible = true;
+                    return;
+                }
+            }
+            else
+            {
+                application = AllotementApplications.GetApplication(applicationid);
+            }
+            DateTime DateOfBirth, DateOfjoining, DateOfDebared, dateofret;
+            DateTime.TryParse(txtDob.Text, out DateOfBirth);
+            DateTime.TryParse(txtEmployedfrom.Text, out DateOfjoining);
+            DateTime.TryParse(txtDateOfRetirement.Text, out dateofret);
+            application.DateOfBirth = DateOfBirth;
+            application.DateOfjoining = DateOfjoining;
+            application.GradePay = drpGradePay.SelectedValue;
+            application.Name = txtUsername.Text;
+            application.Designation = Convert.ToInt64(drpdesignations.SelectedValue);
+            application.OfficeId = Convert.ToInt32(drpOffice.SelectedValue);
+            application.OtherQuarterAddress = txtAuditAddress.Text;
+            if ((txtQuartertype.SelectedValue != null) && (txtQuartertype.SelectedValue != "-1") && (txtQuartertype.SelectedValue != ""))
+            {
+                application.OtherQuarterType = Convert.ToInt32(txtQuartertype.SelectedValue);
+            }
+            application.OtherQuarterNumber = drpAllotedQuarter.SelectedValue;
+            application.JobType = Convert.ToInt32(drpJobType.SelectedValue);
+            application.Sex = Convert.ToInt32(drpSex.SelectedValue);
+            application.Status = 0;
+            application.ContactNumber = txtContactNumber.Text;
+            if (applicationid <= 0)
+            {
+                application.Userid = Users.getUserByUserName(HttpContext.Current.User.Identity.Name).Id;
+                tblUser _user = Users.getUserByUserName(HttpContext.Current.User.Identity.Name);
+                _user.DateOfJoining = DateOfjoining;
+                _user.DateOfRetirement = dateofret;
+                Users.SaveUser(_user);
+            }
+            else
+            {
+
+            }
+            application.Cast = drpcategory.SelectedItem.Text;
+            application.IsSublet = isSubletTrue.Checked;
+            application.IsDebarred = isDebarred.Checked;
+
+            int quarterCategoryId=Convert.ToInt32(drpQuarterCategory.SelectedValue);
+
+            application.QuarterCategory = quarterCategoryId;
+            if (isDebarred.Checked)
+            {
+                DateTime.TryParse(txtDebaredDate.Text, out DateOfDebared);
+                application.DebarredDate = DateOfDebared;
+            }
+            application.IsOtherAccomendation = isauditpooyes.Checked;
+            if (isauditpooyes.Checked)
+            {
+                application.OtherAllotteName = txtAuditAllotteName.Text;
+                application.OtherQuarterAddress = txtAuditAddress.Text;
+                application.OtherQuarterType = Convert.ToInt64(txtQuartertype.SelectedValue);
+                application.OtherQuarterNumber = drpAllotedQuarter.SelectedValue;
+            }
+
+            if (!IsQuarterCategoryActive(quarterCategoryId))
+            {
+                lblmessage.Text = "The application cannot be saved, because specified category is not active";
+                lblmessage.Visible = true;
+                return;
+            }
+
+            application = AllotementApplications.SaveApplications(application);
+            if (Session["members"] != null)
+            {
+                List<tblMember> mem = (List<tblMember>)Session["members"];
+                foreach (tblMember meminfo in mem)
+                {
+                    meminfo.ApplicationId = application.ID;
+                }
+                Tblmemberinfo.Save(mem);
+                Session["members"] = null;
+            }
+            lblmessage.Visible = true;
+            lblmessage.Text = "Information saved sucessfully";
+            Empty();
+            lblmessage.Font.Bold = true;
+            Response.Redirect("~/user/Confirmation.aspx");
+        }
+        else
+        {
+            validatedeclaration.Visible = true;
+                    }
+    }
+
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        if (chkDeclaration.Checked == true)
+        {
+            validatedeclaration.Visible = false;
+            tbAllotmentApplication application;
+            if (applicationid <= 0)
+            {
+                DataSet ds = new DataSet();
+                ds.ReadXml(Server.MapPath("~/submissionVerfication.xml"));
+                DataTable dt = ds.Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    if (!Convert.ToBoolean(dt.Rows[0][0]))
+                    {
+                        lblmessage.Text = "Application submission has been closed";
+                        lblmessage.Visible = true;
+                        return;
+                    }
+                }
+                application = AllotementApplications.GetApplication(applicationid);
+                if (application == null)
+                {
+                    application = new tbAllotmentApplication();
+                    application.SubmissionDate = DateTime.Now;
+                }
+                else
+                {
+                    lblmessage.Text = "Only one application can be submitted!";
+                    lblmessage.Visible = true;
+                    return;
+                }
+            }
+            else
+            {
+                application = AllotementApplications.GetApplication(applicationid);
+            }
+            DateTime DateOfBirth, DateOfjoining, DateOfDebared, dateofret;
+            DateTime.TryParse(txtDob.Text, out DateOfBirth);
+            DateTime.TryParse(txtEmployedfrom.Text, out DateOfjoining);
+            DateTime.TryParse(txtDateOfRetirement.Text, out dateofret);
+            application.DateOfBirth = DateOfBirth;
+            application.DateOfjoining = DateOfjoining;
+            application.GradePay = drpGradePay.SelectedValue;
+            application.Name = txtUsername.Text;
+            application.Designation = Convert.ToInt64(drpdesignations.SelectedValue);
+            application.OfficeId = Convert.ToInt32(drpOffice.SelectedValue);
+            application.OtherQuarterAddress = txtAuditAddress.Text;
+            application.OtherQuarterType = Convert.ToInt32(txtQuartertype.SelectedValue);
+            application.OtherQuarterNumber = drpAllotedQuarter.SelectedValue;
+            application.JobType = Convert.ToInt32(drpJobType.SelectedValue);
+            application.Sex = Convert.ToInt32(drpSex.SelectedValue);
+            application.Status = 0;
+            application.ContactNumber = txtContactNumber.Text;
+            //if (applicationid <= 0)
+            {
+                //application.Userid = Users.getUserByUserName(HttpContext.Current.User.Identity.Name).Id;
+                tblUser _user = Users.getUser(application.Userid.Value);
+                _user.DateOfJoining = DateOfjoining;
+                _user.DateOfRetirement = dateofret;
+                Users.SaveUser(_user);
+            }
+            //else
+            //{
+
+            //}
+            application.Cast = drpcategory.SelectedItem.Text;
+            application.IsSublet = isSubletTrue.Checked;
+            application.IsDebarred = isDebarred.Checked;
+
+            int quarterCategoryId=Convert.ToInt32(drpQuarterCategory.SelectedValue);
+
+            application.QuarterCategory = quarterCategoryId;
+            if (isDebarred.Checked)
+            {
+                DateTime.TryParse(txtDebaredDate.Text, out DateOfDebared);
+                application.DebarredDate = DateOfDebared;
+            }
+            application.IsOtherAccomendation = isauditpooyes.Checked;
+            if (isauditpooyes.Checked)
+            {
+                application.OtherAllotteName = txtAuditAllotteName.Text;
+                application.OtherQuarterAddress = txtAuditAddress.Text;
+                application.OtherQuarterType = Convert.ToInt32(txtQuartertype.SelectedValue);
+                application.OtherQuarterNumber = drpAllotedQuarter.SelectedValue;
+            }
+
+            if (!IsQuarterCategoryActive(quarterCategoryId))
+            {
+                lblmessage.Text = "The application cannot be saved, because specified category is not active";
+                lblmessage.Visible = true;
+                return;
+            }
+
+            application = AllotementApplications.SaveApplications(application);
+            if (Session["members"] != null)
+            {
+                List<tblMember> mem = (List<tblMember>)Session["members"];
+                foreach (tblMember meminfo in mem)
+                {
+                    meminfo.ApplicationId = application.ID;
+                }
+                Tblmemberinfo.Save(mem);
+                Session["members"] = null;
+            }
+            lblmessage.Visible = true;
+            lblmessage.Text = "Information saved sucessfully";
+            Empty();
+            lblmessage.Font.Bold = true;
+            if (!string.IsNullOrEmpty(Request["returnurl"]))
+            { Response.Redirect("~/" + Request["returnurl"]); }
+            else
+                Response.Redirect("~/user/Confirmation.aspx");
+        }
+        else
+        {
+
+            validatedeclaration.Visible = true;
+        }
+    }
+
+ 
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(Request["returnurl"]))
+        { Response.Redirect("~/" + Request["returnurl"]); }
+        else
+        Response.Redirect("~/default.aspx");
+
+    }
+
+    private bool IsQuarterCategoryActive(int categoryId)
+    {
+        return Quarters.IsQuarterCategoryActive(categoryId);
+    }
+
+    private void Bindoffice()
+    {
+        drpOffice.DataSource = Offices.GetAlloffices();
+        drpOffice.DataBind();
+        drpOffice.Items.Insert(0, new ListItem("--Select--", "-1"));
+    }
+    private void BindDesignations()
+    {
+        drpdesignations.DataSource = Allottee.GetDesignations();
+        drpdesignations.DataBind();
+        drpdesignations.Items.Insert(0, new ListItem("--Select--", "-1"));
+    }
+
+    protected void btnsaveMember_click(object sender, EventArgs e)
+    {
+        tblMember _mem = new tblMember();
+        _mem.Age = Convert.ToInt32(txtMemberAge.Text);
+        _mem.Relationship = txtRelationShip.Text;
+        _mem.isEmployed = rdbemplyed.SelectedValue == "0" ? "No" : "Yes";
+        _mem.MemberName = txtMemberName.Text;
+        _mem.sex = drpMemberSex.SelectedItem.Text;
+        if (Session["members"] == null)
+        {
+            Session["members"] = new List<tblMember>();
+        }
+        ((List<tblMember>)Session["members"]).Add(_mem);
+        grdmembers.DataSource = ((List<tblMember>)Session["members"]);
+        grdmembers.DataBind();
+
+    }
+
+    private void Empty()//
+    {
+        txtAAN.Text = "";
+        txtAuditAddress.Text = "";
+        txtAuditAllotteName.Text = "";
+        txtDateOfRetirement.Text = "";
+        txtDebaredDate.Text = "";
+        txtDob.Text = "";
+        txtEmployedfrom.Text = "";
+        drpGradePay.SelectedIndex = -1;
+        txtMemberAge.Text = "";
+        txtMemberName.Text = "";
+        //txtPayBand.Text = "";
+       txtQuartertype.SelectedIndex = -1;
+        txtRelationShip.Text = "";
+        txtUsername.Text = "";
+        txtContactNumber.Text = "";
+    }
+
+
+    private void BindApplicationData()
+    {
+        tbAllotmentApplication application = AllotementApplications.GetApplication(applicationid);
+        if (application != null)
+        {
+            //DateTime DateOfBirth, DateOfjoining, DateOfDebared, dateofret;
+            //DateTime.TryParse(txtDob.Text, out DateOfBirth);
+            //DateTime.TryParse(txtEmployedfrom.Text, out DateOfjoining);
+            //DateTime.TryParse(txtDateOfRetirement.Text, out dateofret);
+            drpGradePay.SelectedValue = application.GradePay;
+            txtUsername.Text = application.Name;
+            
+            if (application.Designation.HasValue)
+                drpdesignations.SelectedValue = application.Designation.Value.ToString();
+            if (application.OfficeId.HasValue)
+                drpOffice.SelectedValue = application.OfficeId.Value.ToString();
+            txtAuditAddress.Text = application.OtherQuarterAddress;
+            txtQuartertype.SelectedValue = Convert.ToString(application.OtherQuarterType);
+            drpAllotedQuarter.SelectedValue = application.OtherQuarterNumber;
+            if (application.JobType.HasValue)
+                drpJobType.SelectedValue = application.JobType.Value.ToString();
+            drpSex.SelectedValue = application.Sex.ToString();
+            txtContactNumber.Text = application.ContactNumber;
+            //application.Status = 0;
+            //application.Userid = Users.getUserByUserName(HttpContext.Current.User.Identity.Name).Id;
+           
+            tblUser _user = Users.getUser(application.Userid.Value);
+            if (application.DateOfBirth.HasValue)
+                txtDob.Text = application.DateOfBirth.Value.ToShortDateString();
+            //txtPayBand.Text = application.QuarterNumber;
+            foreach (ListItem ino in drpcategory.Items)
+            {
+                if (ino.Text.ToLower() == application.Cast.ToLower())
+                {
+                    ino.Selected = true;
+                }
+            }
+            if (_user.DateOfJoining.HasValue)
+                txtEmployedfrom.Text = _user.DateOfJoining.Value.ToShortDateString();
+            if (_user.DateOfRetirement.HasValue)
+            {
+                txtDateOfRetirement.Text = _user.DateOfRetirement.Value.ToShortDateString();
+            }
+            //_user.DateOfJoining = DateOfjoining;
+            //_user.DateOfRetirement = dateofret;
+            if (application.IsSublet.HasValue)
+                isSubletTrue.Checked = application.IsSublet.Value;
+
+
+            if (!isSubletTrue.Checked)
+            {
+                isSubletFalse.Checked = true;
+            }
+            if (application.IsDebarred.HasValue)
+                isDebarred.Checked = application.IsDebarred.Value;
+            if (application.QuarterCategory.HasValue)
+                drpQuarterCategory.SelectedValue = application.QuarterCategory.Value.ToString();
+            if (isDebarred.Checked)
+            {
+                if (application.DebarredDate.HasValue)
+                    txtDebaredDate.Text = application.DebarredDate.Value.ToShortDateString();
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "showdebarred", "showbarredDate(1);", true);
+            }
+            else {
+                isDebarredNO.Checked = true;
+            }
+            if (application.IsOtherAccomendation.HasValue)
+            {
+                isauditpooyes.Checked = application.IsOtherAccomendation.Value;
+               
+
+            }
+            if (!isauditpooyes.Checked)
+            {
+                isauditpoono.Checked = true;
+            }
+            else
+            {
+                txtAuditAllotteName.Text = application.OtherAllotteName;
+                txtAuditAddress.Text = application.OtherQuarterAddress;
+                txtQuartertype.SelectedValue = Convert.ToString(application.OtherQuarterType);
+                drpAllotedQuarter.SelectedValue = application.OtherQuarterNumber;
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "showaudit", "showAudit(1);", true);
+            }
+            grdmembers.DataSource = Tblmemberinfo.GetMemberinfo(application.ID);
+            grdmembers.DataBind();
+        }
+    }
+    protected void bindQuarter()
+    {
+       drpAllotedQuarter.DataSource = Quarters.GetAllAllotedQuarters(Convert.ToInt64(drpQuarterCategory.SelectedValue));
+        drpAllotedQuarter.DataBind();
+        drpAllotedQuarter.Items.Insert(0, new ListItem("-select--", "-1"));
+
+    }
+
+    protected void txtQuarterType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindAllottedQuarterNumbers();
+    }
+
+   protected void  btnverify_Click(object sender,EventArgs e)
+   {
+       AllotementApplications.UpdateApplicationStaus(applicationid, ApplicationStatus.Verified);
+       Response.Redirect("~/" + Request["returnurl"]); 
+   }
+   protected void isauditpooyes_Checked(object sender, EventArgs e)
+   {
+       auditpool.Visible = true;
+   }
+    
+   protected void isauditpoono_Checked(object sender, EventArgs e)
+   {
+       auditpool.Visible = false;
+   }
+}

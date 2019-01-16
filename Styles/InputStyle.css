@@ -1,0 +1,144 @@
+﻿input
+{
+    border: 1px solid gray;
+}
+
+input[type='checkbox'], [type='radio']
+{
+    margin: 2px 2px 2px 2px; 
+    border: 0px;
+    background: transparent;
+}
+
+input[type='text']{
+    background-color: #FFF;
+    width: 98%;
+}
+input[type='password']
+{
+    background-color: #FFF;
+    width: 98%;
+}
+input[type='submit']
+{
+    background-color:#EDEDED;
+}
+   
+input:focus[type='text'], :focus[type='password'], :focus[type='checkbox']
+{
+    background-color:#FFF5D3;
+}
+
+select
+{
+    border: 1px solid gray;
+    width: 98%;
+    background-color:#ffffff;
+}
+
+select:focus
+{
+    background-color:#FFF5D3;
+}
+
+.errorMessage
+{
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
+}
+
+.errorMessage li 
+{ 
+    margin-top: 4px;
+    color:Red;
+    list-style-type:disc;
+}
+
+.searchResults > div > table
+{
+    overflow:auto;
+    max-width: 100%;
+}
+
+.gridView
+{
+    max-width:90%;
+    border-collapse: collapse;
+}
+
+.gridHeader
+{
+    background-color:#C9A976;
+    font-weight:bold;
+    text-align:center;
+}
+
+.gridHeader th
+{
+    border:1px solid black;
+}
+
+.gridHeader th a
+{
+    color:#000;
+    text-decoration: none;
+}
+
+.gridDataColumnHidden
+{
+    display:none;
+}
+
+.gridDataRowOdd
+{
+    background-color:#FFF;
+}
+
+.gridDataRowEven
+{
+    background-color:#FFF3E3;
+}
+
+.gridFooter
+{
+    background-color:#C9A976;
+    border:1px solid black;
+    font-weight:bold;
+}
+
+.gridFooterPaging li a, .gridFooterPaging li .separator
+{
+    width: 3em;
+    color: #FFF;
+}
+
+.gridFooterPaging li span[class=resultPageId]
+{
+    width: 3em;
+    background-color: #FFF;
+    border: 0.1em solid #000;
+    color: #878787;
+}
+
+.gridFooterPaging li input
+{
+    width: 2em;
+}
+
+.gridFooterPaging li 
+{
+    padding-right:1em;
+}
+
+.gridFooterPageSize
+{
+    max-width:150px;
+    float: right;
+    padding-right:10px;
+}
+
+.highlight
+{
+    background-color:#FFF5D3;
+}

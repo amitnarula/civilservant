@@ -1,0 +1,137 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class GuestHouse : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            radGuest.Enabled = true;
+            radSelf.Enabled = true;
+            txtOfficeID.Enabled = true;
+            reqValOfficeID.Enabled = true;
+        }
+    }
+    protected void btnVerify_Click(object sender, EventArgs e)
+    {
+        ValidateCaptcha();
+    }
+
+    private bool ValidateCaptcha()
+    {
+        Captcha1.ValidateCaptcha(txtCaptcha.Text.Trim());
+        if (Captcha1.UserValidated)
+        {
+            return true;
+        }
+        return false;
+
+    }
+
+    protected void btnReset_Click(object sender, EventArgs e)
+    {
+        ClearForm();
+    }
+
+    private void ClearForm()
+    {
+        //Response.Redirect("~/GuestHouse.aspx", true);
+        txtToDate.Text = string.Empty;
+        txtOfficeAndPlaceOfPosting.Text = string.Empty;
+        txtName.Text = string.Empty;
+        txtFromDate.Text = string.Empty;
+        txtEmailAddress.Text = string.Empty;
+        txtDesignation.Text = string.Empty;
+        txtCaptcha.Text = string.Empty;
+        txtAdditionalInformation.Text = string.Empty;
+        ddlGuestHouse.SelectedIndex = 0;
+        ddlPurposeOfVisit.SelectedIndex = 0;
+        radGovtEmployee.Checked = false;
+        radIAADStaff.Checked = true;
+    }
+
+    private void SaveGuestHouseRequest(out long requestId)
+    {
+        tblGuestHouse guestHouseRequest = new tblGuestHouse();
+        guestHouseRequest.DateFrom = Convert.ToDateTime(txtFromDate.Text);
+        guestHouseRequest.DateTo = Convert.ToDateTime(txtToDate.Text);
+        guestHouseRequest.Designation = txtDesignation.Text.Trim();
+        guestHouseRequest.EmailID = txtEmailAddress.Text.Trim();
+        guestHouseRequest.GuestHouse = ddlGuestHouse.SelectedValue;
+        guestHouseRequest.IsEmployee = radGovtEmployee.Checked;
+        guestHouseRequest.IsStaff = radIAADStaff.Checked;
+        guestHouseRequest.Name = txtName.Text;
+        guestHouseRequest.Notes = txtAdditionalInformation.Text;
+        guestHouseRequest.PlaceOfHosting = txtOfficeAndPlaceOfPosting.Text.Trim();
+        guestHouseRequest.PurposeOfVisit = ddlPurposeOfVisit.SelectedValue;
+        guestHouseRequest.MobileNumber = txtMobileNumber.Text.Trim();
+        guestHouseRequest.NumberOfRooms = Convert.ToInt32(ddlRooms.SelectedValue);
+        guestHouseRequest.NumberOfPeople = Convert.ToInt32(ddlPeople.SelectedValue);
+        guestHouseRequest.OfficeID = txtOfficeID.Text;
+        guestHouseRequest.IsGuest = radGuest.Checked;
+        guestHouseRequest.IsSelf = radSelf.Checked;
+        
+        GuestHouseRequest.SaveGuestHouseRequest(guestHouseRequest);
+
+        requestId = guestHouseRequest.ID;
+    }
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    { 
+        //Save Submit and Clear the form
+
+        if (ValidateCaptcha())
+        {
+            lblMessage.Text = string.Empty;
+
+            //Pre business checks prior to save guest house information submitted by user
+            if (GuestHouseRequest.IsGuestHouseAvailable(ddlGuestHouse.SelectedValue, Convert.ToDateTime(txtFromDate.Text), Convert.ToDateTime(txtToDate.Text)))
+            {
+                //Save guest house information
+                long requestId=0;
+
+                SaveGuestHouseRequest(out requestId);
+
+                lblMessage.Text = "Informaion submitted successfully!";
+
+                ClearForm();
+
+                //Send booking confirmation email
+                SendmailMessage.SendMail(txtEmailAddress.Text, "support@estatepagpb.org", "Request for Guest house "+ddlGuestHouse.SelectedValue+" has been" +
+                    "Received successfully, we will contact you soon", "Request received");
+            }
+            else
+            { 
+                lblMessage.Text= "Guest house "+ddlGuestHouse.SelectedValue+" is not available in selected date range"+
+                    "Please try to book another slot";
+            }
+        }
+        else
+        {
+            lblMessage.Text = "Please enter valid captcha";
+        }
+    }
+    
+    protected void rad_CheckedChanged(object sender, EventArgs e)
+    {
+        if (radIAADStaff.Checked)
+        {
+            radGuest.Enabled = true;
+            radSelf.Enabled = true;
+            txtOfficeID.Enabled = true;
+            reqValOfficeID.Enabled = true;
+        }
+        else
+        {
+            radGuest.Enabled = false;
+            radSelf.Enabled = false;
+            txtOfficeID.Enabled = false;
+            reqValOfficeID.Enabled = false;
+        }
+    }
+}

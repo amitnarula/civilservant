@@ -1,0 +1,176 @@
+﻿<%@ master language="VB"  CodeFile="~/MasterPage.master.vb" Inherits="Control_MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="~/Styles/GlobalStyle.css" rel="Stylesheet" type="text/css" />
+    <link href="~/Styles/InputStyle.css" rel="Stylesheet" type="text/css" />
+    <link href="~/Styles/TabMenuBar.css" rel="Stylesheet" type="text/css" />
+    <link href="~/menu_style.css" rel="Stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="main">
+   <%-- <div class="header_main">
+    <div class="indiaLogo">
+            <img src="Images/indiaLogo.gif" alt="a" />
+        </div>
+        
+    </div>--%>
+        <div>
+	<div class="first_header"><img src="images/homeHeader.gif" />
+		</div>
+			</div>
+    <div class="header_main">
+<div class="logo"><img src="images/indiaLogo.gif" /></div>
+<div class="logo_text">Welcome to Accountants General Punjab Estate Management Allotment System</div>
+<div class="menu_text"> <table width="811" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="92" height="32">&nbsp;</td>
+    <td width="368">&nbsp;</td>
+    <td colspan="2" style="font-family:arial; font-size:16px; font-weight:bold;">Chandigarh</td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td width="196" style="font-family:arial; font-size:13px; font-weight:bold;">Thursday,Sept.16,2010</td>
+    <td width="38">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+<tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td align="right" valign="top"><img src="images/menu_1.gif" /></td>
+    <td colspan="3" valign="bottom"><div class="menu">
+		<ul>
+		
+			<li><a href="default.aspx" >Home</a></li>
+			<li><a href="aboutus.aspx" >About us</a>		  </li>
+			
+		  	<li><a href="rti.html">RTI </a>          </li>
+			<li><a href="contact.aspx">Contact us</a></li>
+		</ul>
+	</div></td>
+    </tr>
+</table>
+</div>
+	</div>			
+    <div class="center">
+            <%--<div class="row">
+            <div class="homeHeader"></div>
+            <div class="homeHeaderText">
+                Chandigarh <br />
+                Thursday,Sept.16,2010
+            </div>
+        </div>
+            <div class="minorGap"></div>
+            <div class="row">
+            <center><h2>Estate Management Allotment System</h2></center>
+        </div>
+            <div class="minorGap"></div>
+             <div class="row">
+<table width="656" align=right border="0" cellspacing="0" cellpadding="0">             
+  <tr>
+    <td align="right" valign="top"><img src="img/menu_1.gif" /></td>
+    <td colspan="3" valign="bottom"><div class="menu">
+		<ul>
+		
+			<li><a href="default.aspx" >Home</a></li>
+			<li><a href="aboutus.aspx" >About us</a>		  </li>
+			
+		  	<li><a href="rti.html">RTI </a>          </li>
+			<li><a href="contact.aspx">Contact us</a></li>
+		</ul>
+	</div></td>
+    </tr>
+</table>
+
+	</div>--%>
+                            <div class="col_1">
+                                <%--<ul>
+                                    <li><a href="~/user/submission.aspx" id="hh" runat="server"></a></li>
+                                    <li><a href="#">Circulars</a></li>
+                                    <li><a href="#">Photo Gallery</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Login</a></li>
+                                </ul>--%>
+<table runat="server" id="unauthenticated" width="201" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="col_1menu"><a href="~/user/submission.aspx" runat="server">House Allotment</a></td>
+        </tr>
+        <tr>
+          <td class="online_links"><a href="~/user/submission.aspx" runat="server">Online Application Form</a></td>
+        </tr>
+        <tr>
+          <td class="online_links"> <a href="~/user/submission.aspx" runat="server">Request for Transfer of Quarter</a></td>
+        </tr>
+        <tr>
+          <td class="col_1menu"><a href="#">Circulars</a></td>
+        </tr>
+        <tr>
+          <td class="col_1menu"><a href="#">Photo Gallery</a></td>
+        </tr>
+        
+        <tr>
+          <td class="col_1menu"><a href="#">FAQ</a></td>
+        </tr>
+       
+        <tr>
+          <td class="col_1menu"><a href="signin.aspx">Login</a></td>
+        </tr>
+      </table>
+ 
+                            </div>  
+                            <div class="col_2">
+                                <div class="content_area">
+                                    
+                                  <%--  <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>
+                                    <asp:UpdatePanel ID="panelMaster" runat="server">
+                                        <ContentTemplate>
+                                            <asp:PlaceHolder ID="pholder" runat="server">--%>
+                                                <asp:ContentPlaceHolder ID="phEmsWebApp" runat="server">
+                            
+                                                </asp:ContentPlaceHolder>
+                                            <%--</asp:PlaceHolder>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>--%>
+                                </div>
+                                        
+                        
+            </div>
+        
+        <div id="footer"> 
+            <div id="copyRight"> 
+                © 2010 - Powered by triGENZ Solutions Limited.
+            </div> 
+        </div>
+    </div>
+    </form>
+</body>
+</html>
