@@ -52,6 +52,7 @@
                         </asp:TemplateField>
                         <%--END : For displaying serial number--%>
                         <asp:BoundField HeaderStyle-CssClass="gridHeader" HeaderText="Quarter" DataField="QuarterNumber" />
+                        <asp:BoundField HeaderStyle-CssClass="gridHeader" HeaderText="AAN" DataField="aan" />
                         <asp:BoundField ItemStyle-CssClass="uppercase" HeaderStyle-CssClass="gridHeader"
                             HeaderText="Name of allotte" DataField="fullname" />
                         <asp:BoundField HeaderStyle-CssClass="gridHeader" HeaderText="Designation" DataField="designation" />
