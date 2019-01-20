@@ -108,7 +108,7 @@ DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
                            Dept = request3.Name,
                            AllotmentStatus = request4.Status.Value,
                            DateOfAllotment = request4.DateOfAllotement.Value,
-                           DateOfChangeSubmission = request.dateofsubmission.Value,
+                           DateOfChangeSubmission = ResolveToIndianDateTime(request.dateofsubmission.Value),
                            AppId = request5.ID
                        };
                
@@ -119,6 +119,14 @@ DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
         grdQuarters.DataSource = requests.ToList();
         grdQuarters.DataBind();
     }
+
+    private DateTime ResolveToIndianDateTime(DateTime input) {
+        DateTime utc = TimeZoneInfo.ConvertTimeToUtc(input);
+        DateTime temp = new DateTime(utc.Ticks, DateTimeKind.Utc);
+        DateTime ist = TimeZoneInfo.ConvertTimeFromUtc(temp, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
+        return ist;
+    }
+
     protected void gridCommand(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "Allotte")

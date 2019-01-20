@@ -31,8 +31,8 @@ public partial class Reports_PossedQuarter : System.Web.UI.Page
     {
         drpQuarterCat.DataSource = Quarters.GetQuarterCategory();
         drpQuarterCat.DataBind();
-        drpOffice.DataSource = Offices.GetAlloffices();
-        drpOffice.DataBind();
+        //drpOffice.DataSource = Offices.GetAlloffices();
+        //drpOffice.DataBind();
     }
     protected void btnGenerateReport_click(object sender, EventArgs e)
     {
@@ -41,13 +41,23 @@ public partial class Reports_PossedQuarter : System.Web.UI.Page
         {
             con.Open();
         }//modified by :anki :)
+//        string query = @"select ROW_NUMBER() OVER(ORDER BY a.dateofpossession DESC) AS [Sr no], a.quarternumber,u.fullname as [Name of allotte],d.name as Designation,o.name as office,CONVERT(VARCHAR(10), a.dateofpossession, 103) as [Date of possession] 
+//from dbo.tblAllottee a
+//inner join tblquarters q on q.quarternumber=a.quarternumber
+//inner join dbo.tblUsers u on a.aan=u.aan
+//inner join dbo.tblOffices o on o.id=u.baseofficeid
+//inner join dbo.tblDesignations d on u.designation=d.id
+//where a.status=2 and q.category=" + drpQuarterCat.SelectedValue + " and o.id=" + drpOffice.SelectedValue + " ORDER BY a.dateofpossession DESC";
+
         string query = @"select ROW_NUMBER() OVER(ORDER BY a.dateofpossession DESC) AS [Sr no], a.quarternumber,u.fullname as [Name of allotte],d.name as Designation,o.name as office,CONVERT(VARCHAR(10), a.dateofpossession, 103) as [Date of possession] 
 from dbo.tblAllottee a
 inner join tblquarters q on q.quarternumber=a.quarternumber
 inner join dbo.tblUsers u on a.aan=u.aan
 inner join dbo.tblOffices o on o.id=u.baseofficeid
 inner join dbo.tblDesignations d on u.designation=d.id
-where a.status=2 and q.category=" + drpQuarterCat.SelectedValue + " and o.id=" + drpOffice.SelectedValue + " ORDER BY a.dateofpossession DESC";
+where a.status=2 and q.category=" + drpQuarterCat.SelectedValue + " ORDER BY a.dateofpossession DESC";
+
+
 
         SqlDataAdapter adp = new SqlDataAdapter(query, con);
         try

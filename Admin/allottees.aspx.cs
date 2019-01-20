@@ -59,7 +59,7 @@ public partial class Admin_allottees : System.Web.UI.Page
             txtDateOfRetension.Text = string.Empty;
             txtdateofretensionupto.Text = string.Empty;
             txtRemarks.Text = string.Empty;
-            ddlRetentionPeriod.SelectedIndex = -1;
+            //ddlRetentionPeriod.SelectedIndex = -1;
             ddlRetentionRule.SelectedIndex = -1;
             hdnselected.Value = id.ToString();
             ModalPopupExtender1.Show();
@@ -143,19 +143,19 @@ public partial class Admin_allottees : System.Web.UI.Page
     }
     protected void ddlRetentionPeriod_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (!string.IsNullOrEmpty(txtDateOfRetension.Text))
-        {
-            txtdateofretensionupto.Text = Convert.ToDateTime(txtDateOfRetension.Text).AddMonths(Convert.ToInt32(ddlRetentionPeriod.SelectedValue)).ToShortDateString();
-            upPanelDateOfRetentionUpto.Update();
-        }
+        //if (!string.IsNullOrEmpty(txtDateOfRetension.Text))
+        //{
+        //    txtdateofretensionupto.Text = Convert.ToDateTime(txtDateOfRetension.Text).AddMonths(Convert.ToInt32(ddlRetentionPeriod.SelectedValue)).ToShortDateString();
+        //    upPanelDateOfRetentionUpto.Update();
+        //}
     }
 
     protected void btnDummy_Click(object sender, EventArgs e)
     {
-        if (!string.IsNullOrEmpty(txtDateOfRetension.Text))
-        {
-            txtdateofretensionupto.Text = Convert.ToDateTime(txtDateOfRetension.Text).AddMonths(Convert.ToInt32(ddlRetentionPeriod.SelectedValue)).ToShortDateString();
-            upPanelDateOfRetentionUpto.Update();
-        }
+        //if (!string.IsNullOrEmpty(txtDateOfRetension.Text))
+        //{
+        //    txtdateofretensionupto.Text = Convert.ToDateTime(txtDateOfRetension.Text).AddMonths(Convert.ToInt32(ddlRetentionPeriod.SelectedValue)).ToShortDateString();
+        //    upPanelDateOfRetentionUpto.Update();
+        //}
     }
 }

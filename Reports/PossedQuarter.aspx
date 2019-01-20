@@ -20,12 +20,12 @@
         
         
     </div>
-    <div class="row">
+    <%--<div class="row">
         <div class="col-lg-12">
             <div>Office/Department:</div>
             <div><asp:DropDownList CssClass="form-control" ID="drpOffice" DataTextField="Name"  DataValueField="Id"  runat="server" ></asp:DropDownList></div>
         </div>
-    </div>
+    </div>--%>
     <br />
      <div class="row">
         <div class="col-lg-12">

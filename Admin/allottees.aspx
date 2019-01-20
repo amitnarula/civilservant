@@ -170,7 +170,7 @@
                         ControlToValidate="txtDateOfRetension" ValidationGroup="valRetension" Display="None"></asp:RequiredFieldValidator>
                 </td>
             </tr>
-            <tr>
+            <%--<tr>
                 <td>
                     Select Retention Period:
                 </td>
@@ -192,7 +192,7 @@
                         ErrorMessage="Please select a valid retention period" ControlToValidate="ddlRetentionPeriod"
                         ValidationGroup="valRetension" Display="None"></asp:RequiredFieldValidator>
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td>Reason</td>
                 <td>
@@ -221,13 +221,13 @@
                     Date of Retention upto:
                 </td>
                 <td>
-                    <asp:UpdatePanel runat="server" ID="upPanelDateOfRetentionUpto" UpdateMode="Conditional">
+                    <%--<asp:UpdatePanel runat="server" ID="upPanelDateOfRetentionUpto" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:TextBox CssClass="form-control" runat="server" ID="txtdateofretensionupto" Enabled="false" />
                         </ContentTemplate>
-                    </asp:UpdatePanel>
-                    <%--<asp:TextBox ID="txtdateofretensionupto" runat="server"></asp:TextBox>
-                    <AjaxToolkit:CalendarExtender Format="dd/MM/yyyy" ID="CalendarExtender3" runat="server" TargetControlID="txtdateofretensionupto" />--%>
+                    </asp:UpdatePanel>--%>
+                    <asp:TextBox CssClass="form-control" ID="txtdateofretensionupto" runat="server"></asp:TextBox>
+                    <AjaxToolkit:CalendarExtender Format="dd/MM/yyyy" ID="CalendarExtender3" runat="server" TargetControlID="txtdateofretensionupto" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please select date of retension upto."
                         ControlToValidate="txtdateofretensionupto" ValidationGroup="valRetension" Display="None"></asp:RequiredFieldValidator>
                 </td>

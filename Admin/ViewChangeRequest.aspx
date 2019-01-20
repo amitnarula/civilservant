@@ -54,6 +54,8 @@
                         <%--END : For displaying serial number--%>
                         <asp:BoundField ItemStyle-CssClass="uppercase" HeaderStyle-CssClass="gridHeader"
                             HeaderText="Name" DataField="Name" />
+                            <asp:BoundField ItemStyle-CssClass="uppercase" HeaderStyle-CssClass="gridHeader"
+                            HeaderText="AAN" DataField="AAN" />
                         <asp:HyperLinkField HeaderStyle-CssClass="gridHeader" HeaderText="Quarter Number"
                             DataTextField="QuarterNumber" />
                         <asp:BoundField HeaderStyle-CssClass="gridHeader" HeaderText="Designation" DataField="Designation" />

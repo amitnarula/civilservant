@@ -140,6 +140,23 @@ public class Quarters
         {
             quarter.DateOfVacation = dateOfVacationParsed;
         }
+
+        //if status is surrendered, delete the change request against this quarter
+        var quarterStatus = (QuarterStatus)status;
+        if (quarterStatus == QuarterStatus.Surrender)
+        {
+            var changeRequests = datacontext
+                .tblChangeRequests
+                .Where(x => x.QuarterNumber == quarter.QuarterNumber)
+                .ToList();
+            if (changeRequests.Any())
+                changeRequests.ForEach((x) =>
+                {
+                    x.Status = (int)ChangeRequestStatus.Deleted;
+                });
+
+            //datacontext.tblChangeRequests.DeleteAllOnSubmit(changeRequests);
+        }
         
         datacontext.SubmitChanges();
     }
