@@ -96,15 +96,18 @@ public partial class User_ProcessApplication : System.Web.UI.Page
                 }
                 else
                 {
+                    //only then when application is in possessed state.
+                    var isChangeRequestEnabled = application.Status == (int)ApplicationStatus.Pos; 
+                    
                     if (application.MedicalCategory.HasValue && application.MedicalCategory.Value >= 0) //Medical grounds
                     {
                         applyForQuarterMedicalGroundsPanel.Visible = true;
-                        btnChangeRequestMedical.Enabled = true;
+                        btnChangeRequestMedical.Enabled = isChangeRequestEnabled;
                     }
                     else
                     {
                         applyForQuarterPanel.Visible = true;
-                        btnChangeRequest.Enabled = true;
+                        btnChangeRequest.Enabled = isChangeRequestEnabled;
                     }
 
                 }
