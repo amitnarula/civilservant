@@ -197,6 +197,7 @@ public partial class Admin_Users : System.Web.UI.Page
         {
             e.ParameterValues.Clear();
             e.ParameterValues.Add("Roleid", drpRoles.SelectedValue);
+            e.ParameterValues.Add("Name", txtSearchByName.Text);
         }
     }
     protected void grdUsers_pageindexchanged(object sender, GridViewPageEventArgs e)
@@ -208,5 +209,10 @@ public partial class Admin_Users : System.Web.UI.Page
     {
         drpRoles.DataSource = Roles.GetRoles();
         drpRoles.DataBind();
-    }    
+    }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+
+    }
 }
