@@ -3,11 +3,7 @@
 
 <%@ MasterType VirtualPath="~/sitemaster.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phEmsWebAppHead" runat="Server">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="phEmsWebApp" runat="Server">
     <div id="managerContainerHeader">
@@ -27,26 +23,21 @@
             </div>
             
             
-    <div class="container">
-        <div class="row">
-            <div class="col-lg">
-                <asp:DropDownList ID="drpRoles" CssClass="form-control" runat="server" AutoPostBack="true"
+    <table class="table">
+        <tr>
+            <td><asp:DropDownList ID="drpRoles" CssClass="form-control" runat="server" AutoPostBack="true"
                     DataValueField="Id" DataTextField="Name">
                 </asp:DropDownList>
-            </div>
-            
-        </div>
-        <div class="row">
-            <div class="col-lg">
-                <asp:TextBox runat="server" ID="txtSearchByName" CssClass="form-control" />
-            </div>
-            <div class="col-lg">
-                <asp:Button Text="Search by name" ID="btnSearch" runat="server" CssClass="btn btn-info"
-                    OnClick="btnSearch_Click" /></div>
-        </div>
-        
-        
-    </div>
+            </td>
+        </tr>
+        <tr>
+            <td><asp:TextBox runat="server" ID="txtSearchByName" CssClass="form-control" /></td>
+            <td><asp:Button Text="Search by name" ID="btnSearch" runat="server" CssClass="btn btn-info"
+                    OnClick="btnSearch_Click" /></td>
+        </tr>
+    </table>
+
+    
 <div class="table-responsive">
                 <asp:GridView ID="grdUsers" CssClass="table table-bordered table-hover" DataSourceID="ObjectDataSource1"
                     AllowPaging="true" PageSize="20" Width="100%" AutoGenerateColumns="false" runat="server"

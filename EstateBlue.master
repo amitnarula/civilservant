@@ -80,6 +80,7 @@
       <li class="page-scroll"><a href="<%=_url %>user/circulars.aspx" class="scroll">Approved priority list<span> </span></a></li>
       <li class="page-scroll"><a href="<%=_url %>faq.docx" class="scroll">Faq for user<span> </span></a></li>
       <li class="page-scroll"><a href="<%=_url %>contact.aspx" class="scroll">Contact us </a> </li>
+      <li class="page-scroll"><a href="<%=_url %>whatsnew.aspx" class="scroll">Whats new</a> </li>
     </ul>
     <a href="#" id="pull"><img src="<%=_url %>imgs/nav-icon.png" title="menu" /></a> </div>
 </nav>

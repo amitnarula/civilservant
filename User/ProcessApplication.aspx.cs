@@ -75,8 +75,22 @@ public partial class User_ProcessApplication : System.Web.UI.Page
             
             if (application.QuarterCategory.HasValue && !Quarters.IsQuarterCategoryActive(application.QuarterCategory.Value))
             {
-                submissionClosedPanel.Visible = true;
-                return;
+                //submissionClosedPanel.Visible = true;
+                //return;
+
+                //only then when application is in possessed state.
+                var isChangeRequestEnabled = application.Status == (int)ApplicationStatus.Pos;
+
+                if (application.MedicalCategory.HasValue && application.MedicalCategory.Value >= 0) //Medical grounds
+                {
+                    applyForQuarterMedicalGroundsPanel.Visible = true;
+                    btnChangeRequestMedical.Enabled = isChangeRequestEnabled;
+                }
+                else
+                {
+                    applyForQuarterPanel.Visible = true;
+                    btnChangeRequest.Enabled = isChangeRequestEnabled;
+                }
             }
             else
             { 
