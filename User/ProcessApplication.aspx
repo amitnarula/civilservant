@@ -128,7 +128,13 @@
         </asp:Panel>
         <br />
         <asp:Panel runat="server" ID="pnlChangeRequest" CssClass="table-responsive" Visible="false" Width="100%">
-            <table border="0" cellpadding="5" cellspacing="5" width="100%" class="table">
+            
+    <div class="alert alert-info">
+        <div>Please Note:</div> <div>1. Quarters marked in Green colour are Vacant as of
+            now.</div> <div>2. Allotment for Change option is based on the criteria of “First
+                Come First Serve” basis.</div>
+    </div>
+            <table border="0" cellpadding="5" cellspacing="5" width="100%" class="table" style="display:none">
                 <tr>
                     <td>
                         <asp:RadioButton Text="List of Vacant Quarters" Checked="true" ID="radListVacantQuarters" GroupName="radUpper"
@@ -166,7 +172,7 @@
                             Quarter number
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label  Text='<%#Eval("QuarterNumber") %>' ID="lblQuarterNumber" runat="server" />
+                            <asp:Label Text='<%#Eval("Quarter.QuarterNumber") %>' ID="lblQuarterNumber" runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>
@@ -193,10 +199,19 @@
                             <asp:RadioButton ID="radPriority3" Text="" onchange="onRadioButtonClick(this,'radPriority3')" runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            No. of change requests already received
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            
+                            <asp:Literal ID="litChangeRequests" Text='<%#Eval("NumberOfChangeRequests") %>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
             </div>
-            <asp:Button Text="Save" CssClass="btn btn-success" ID="btnSave" OnClick="btnSave_Click" runat="server" />&nbsp;&nbsp;
+            <asp:Button Text="Save" OnClientClick="return confirm('No further modification will be allowed after submission.If you are ready to submit please click OK or if you want to modify please click CANCEL.')" CssClass="btn btn-success" ID="btnSave" OnClick="btnSave_Click" runat="server" />&nbsp;&nbsp;
             <input type="button" id="inpBtnReset" onclick="reset()" class="btn btn-warning" name="name" value="Reset" />&nbsp;&nbsp;
             <asp:Button Text="Cancel" CssClass="btn btn-danger" ID="btnCancel" OnClick="btnCancel_Click" runat="server" />
         </asp:Panel>

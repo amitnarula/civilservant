@@ -7,6 +7,13 @@ using System.Web.UI.WebControls;
 
 public partial class User_ProcessApplication : System.Web.UI.Page
 {
+
+    class QuarterData {
+        public int NumberOfChangeRequests { get; set; }
+        public tblQuarter Quarter { get; set; }
+        public bool IsVacant { get; set; }
+    }
+
     string applicationId = string.Empty;
     long categoryId = 0;
     List<tblChangeRequest> changeRequests=new List<tblChangeRequest>();
@@ -16,19 +23,28 @@ public partial class User_ProcessApplication : System.Web.UI.Page
  	    if(e.Row.RowType==DataControlRowType.DataRow)
         {
             Label lblQuarterNumber = e.Row.FindControl("lblQuarterNumber") as Label;
-            int numberOfChangeRequestsForQuarter=0;
-            string quarterNumber = lblQuarterNumber.Text;
+            QuarterData quarterData = e.Row.DataItem as QuarterData;
 
-            if(changeRequests.Any())
-            {
-                if(changeRequests.Where(cr=>cr.FirstPerference==quarterNumber ||
-                    cr.SecondPerference==quarterNumber || 
-                    cr.ThirdPerference==quarterNumber).Any())
-                {
-                    numberOfChangeRequestsForQuarter++;
-                }
+            if (quarterData != null && quarterData.IsVacant) {
+
+                var row = lblQuarterNumber.NamingContainer as GridViewRow;
+                row.CssClass = quarterData.IsVacant ? "alert alert-success" : "alert alert-danger";
+                
             }
-            lblQuarterNumber.ToolTip =numberOfChangeRequestsForQuarter +" Change requests against this quarter";
+
+            //int numberOfChangeRequestsForQuarter=0;
+            //string quarterNumber = lblQuarterNumber.Text;
+
+            //if(changeRequests.Any())
+            //{
+            //    if(changeRequests.Where(cr=>cr.FirstPerference==quarterNumber ||
+            //        cr.SecondPerference==quarterNumber || 
+            //        cr.ThirdPerference==quarterNumber).Any())
+            //    {
+            //        numberOfChangeRequestsForQuarter++;
+            //    }
+            //}
+            //lblQuarterNumber.ToolTip =numberOfChangeRequestsForQuarter +" Change requests against this quarter";
         }
     }
 
@@ -153,10 +169,15 @@ public partial class User_ProcessApplication : System.Web.UI.Page
 
                 
             }
-            BindData();
+            //BindData();
+            BindDataImprovised();
         }
 
         changeRequests = new DataClassesDataContext().tblChangeRequests.ToList();
+        
+    }
+
+    protected void Page_Init(object sender, EventArgs e) {
         grdQuarters.RowDataBound += new GridViewRowEventHandler(grdQuarters_RowDataBound);
     }
 
@@ -184,7 +205,8 @@ public partial class User_ProcessApplication : System.Web.UI.Page
     
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        BindData();
+        BindDataImprovised();
+        //BindData();
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
@@ -221,8 +243,8 @@ public partial class User_ProcessApplication : System.Web.UI.Page
 
         }
 
-        if (string.IsNullOrEmpty(firstPreferrence) &&
-            string.IsNullOrEmpty(secondPreference) &&
+        if (string.IsNullOrEmpty(firstPreferrence) ||
+            string.IsNullOrEmpty(secondPreference) ||
             string.IsNullOrEmpty(thirdPreference))
         {
             lblStatus.Text = "Please select a valid preference.";
@@ -247,6 +269,51 @@ public partial class User_ProcessApplication : System.Web.UI.Page
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/user/application.aspx");
+    }
+
+    private void BindDataImprovised() {
+        bool searchForMedicalGround = btnChangeRequestMedical.Enabled ? true : false;
+
+        //Bind the quarters here
+        List<tblQuarter> quarters = Quarters.GetQuarters();
+        List<QuarterData> quartersData = new List<QuarterData>();
+        var changeRequests = Quarters.GetChangeRequests();
+
+        //Filter by category
+        quarters = quarters.Where(q => q.Category == categoryId).ToList();
+
+        //Search by medical grounds
+        if (searchForMedicalGround)
+        {
+            quarters = quarters.Where(quarter => !(quarter.QuarterNumber.Contains('A') ||
+                quarter.QuarterNumber.Contains('B') ||
+                quarter.QuarterNumber.Contains('C') ||
+                quarter.QuarterNumber.Contains('D'))).ToList();
+
+        }
+        else
+        {
+            quarters = quarters.Where(quarter => (quarter.QuarterNumber.Contains('A') ||
+                quarter.QuarterNumber.Contains('B') ||
+                quarter.QuarterNumber.Contains('C') ||
+                quarter.QuarterNumber.Contains('D'))).ToList();
+        }
+
+        quarters.ForEach((quarter) =>
+        {
+            var noOfChangeRequestsForQuarter = changeRequests.Count(q => q.FirstPerference == quarter.QuarterNumber ||
+                        q.SecondPerference == quarter.QuarterNumber ||
+                        q.ThirdPerference == quarter.QuarterNumber);
+            quartersData.Add(new QuarterData() {
+                IsVacant = quarter.Status.HasValue && quarter.Status.Value == ((int)QuarterStatus.Vacant),
+                NumberOfChangeRequests = noOfChangeRequestsForQuarter,
+                Quarter = quarter
+            });
+            
+        });
+
+        grdQuarters.DataSource = quartersData.OrderBy(x=>x.IsVacant==false).ToList();
+        grdQuarters.DataBind();
     }
 
     private void BindData()

@@ -149,12 +149,13 @@ public class Allottee
         List<uspGetAllotteResult> _lstPossed = varAllottees.ToList();
         if (_lstPossed.Count > 0)
             _lst.AddRange(_lstPossed);
-        j = (long)AllotementStatus.Retension;
+        //j = (long)AllotementStatus.Retension;
 
-        varAllottees = datacontext.uspGetAllotte(j,category);
-        List<uspGetAllotteResult> _lstRete = varAllottees.ToList();
-        if (_lstRete.Count > 0)
-            _lst.AddRange(_lstRete);
+        //varAllottees = datacontext.uspGetAllotte(j,category);
+        //List<uspGetAllotteResult> _lstRete = varAllottees.ToList();
+        //if (_lstRete.Count > 0)
+        //    _lst.AddRange(_lstRete);
+
         return _lst;
     }
     public static void UpdateAllottementStatus(long applicationid,AllotementStatus status)

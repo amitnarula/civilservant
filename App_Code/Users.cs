@@ -60,6 +60,18 @@ public class Users
         var varUsers = from user in dataContext.tblUsers where user.Id==id select user;
         return varUsers.FirstOrDefault();
     }
+
+    public static void ChangePassword(string aan, string password) {
+        using (DataClassesDataContext dc = new DataClassesDataContext()) {
+            var user = dc.tblUsers.SingleOrDefault(x => x.AAN == aan);
+            if (user != null) {
+                user.Password = password;
+
+                dc.SubmitChanges();
+            }
+        }
+    }
+
     public static void SaveUser(tblUser user)
     {
         DataClassesDataContext dataContext = new DataClassesDataContext();

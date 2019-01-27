@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Linq;
+using System.Data.Linq;
 
 public partial class Reports_VacantQuarter : System.Web.UI.Page
 {
@@ -49,9 +51,48 @@ public partial class Reports_VacantQuarter : System.Web.UI.Page
             ExportData.Export o = new ExportData.Export("Web");
             if (ds.Tables.Count > 0)
             {
+                
                 if (ds.Tables[0].Rows.Count <= 0)
                     ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
-                o.ExportDetails(ds.Tables[0], ExportData.Export.ExportFormat.Excel, "Vacant Quarter report.xls");
+
+                DataTable dt = new DataTable("VacanctQuarters");
+                dt.Columns.Add("Sno",typeof(string));
+                dt.Columns.Add("Quarter Number",typeof(string));
+                dt.Columns.Add("Date of vacation", typeof(DateTime));
+                dt.Columns.Add("Floor",typeof(int));
+
+                foreach (DataRow row in ds.Tables[0].Rows) {
+                    var quarterNo = row["Quarter number"].ToString();
+                    var newRow = dt.NewRow();
+                    newRow["Sno"] = row["Sr no"];
+                    newRow["Quarter Number"] = row["Quarter number"];
+                    newRow["Date of vacation"] = Convert.ToDateTime(row["Date Of Vacation"]);
+
+
+                    if (quarterNo.Contains('A'))
+                    {
+
+                        newRow["Floor"] = 1;
+                    }
+                    else if (quarterNo.Contains('B'))
+                    {
+                        newRow["Floor"] = 2;
+                    }
+                    else if (quarterNo.Contains('C'))
+                    {
+                        newRow["Floor"] = 3;
+                    }
+                    else
+                        newRow["Floor"] = 0;
+
+                    dt.Rows.Add(newRow);
+                }
+
+                DataView dv = dt.AsDataView();
+                dv.Sort = "Floor asc, Date of vacation desc";
+                dt = dv.ToTable();
+
+                o.ExportDetails(dt, ExportData.Export.ExportFormat.Excel, "Vacant Quarter report.xls");
             }
         }
         finally

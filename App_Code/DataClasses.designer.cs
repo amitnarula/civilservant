@@ -101,6 +101,12 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
   partial void InserttblChangeRequest(tblChangeRequest instance);
   partial void UpdatetblChangeRequest(tblChangeRequest instance);
   partial void DeletetblChangeRequest(tblChangeRequest instance);
+  partial void InserttblWhatsNew(tblWhatsNew instance);
+  partial void UpdatetblWhatsNew(tblWhatsNew instance);
+  partial void DeletetblWhatsNew(tblWhatsNew instance);
+  partial void InserttblOTP(tblOTP instance);
+  partial void UpdatetblOTP(tblOTP instance);
+  partial void DeletetblOTP(tblOTP instance);
   #endregion
 	
 	public DataClassesDataContext() : 
@@ -330,6 +336,22 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<tblChangeRequest>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tblWhatsNew> tblWhatsNews
+	{
+		get
+		{
+			return this.GetTable<tblWhatsNew>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tblOTP> tblOTPs
+	{
+		get
+		{
+			return this.GetTable<tblOTP>();
 		}
 	}
 	
@@ -7393,6 +7415,322 @@ public partial class tblChangeRequest : INotifyPropertyChanging, INotifyProperty
 				this._Status = value;
 				this.SendPropertyChanged("Status");
 				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblWhatsNew")]
+public partial class tblWhatsNew : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private string _Description;
+	
+	private System.Data.Linq.Binary _ContentFile;
+	
+	private System.DateTime _Date;
+	
+	private int _Id;
+	
+	private string _Name;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnContentFileChanging(System.Data.Linq.Binary value);
+    partial void OnContentFileChanged();
+    partial void OnDateChanging(System.DateTime value);
+    partial void OnDateChanged();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+	
+	public tblWhatsNew()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(100)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this.OnDescriptionChanging(value);
+				this.SendPropertyChanging();
+				this._Description = value;
+				this.SendPropertyChanged("Description");
+				this.OnDescriptionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContentFile", DbType="VarBinary(MAX) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public System.Data.Linq.Binary ContentFile
+	{
+		get
+		{
+			return this._ContentFile;
+		}
+		set
+		{
+			if ((this._ContentFile != value))
+			{
+				this.OnContentFileChanging(value);
+				this.SendPropertyChanging();
+				this._ContentFile = value;
+				this.SendPropertyChanged("ContentFile");
+				this.OnContentFileChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date NOT NULL")]
+	public System.DateTime Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
+	public string Name
+	{
+		get
+		{
+			return this._Name;
+		}
+		set
+		{
+			if ((this._Name != value))
+			{
+				this.OnNameChanging(value);
+				this.SendPropertyChanging();
+				this._Name = value;
+				this.SendPropertyChanged("Name");
+				this.OnNameChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblOTP")]
+public partial class tblOTP : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private long _Id;
+	
+	private string _AAN;
+	
+	private string _OTP;
+	
+	private System.DateTime _GeneratedOn;
+	
+	private string _PhoneNumber;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(long value);
+    partial void OnIdChanged();
+    partial void OnAANChanging(string value);
+    partial void OnAANChanged();
+    partial void OnOTPChanging(string value);
+    partial void OnOTPChanged();
+    partial void OnGeneratedOnChanging(System.DateTime value);
+    partial void OnGeneratedOnChanged();
+    partial void OnPhoneNumberChanging(string value);
+    partial void OnPhoneNumberChanged();
+    #endregion
+	
+	public tblOTP()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public long Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AAN", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+	public string AAN
+	{
+		get
+		{
+			return this._AAN;
+		}
+		set
+		{
+			if ((this._AAN != value))
+			{
+				this.OnAANChanging(value);
+				this.SendPropertyChanging();
+				this._AAN = value;
+				this.SendPropertyChanged("AAN");
+				this.OnAANChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OTP", DbType="NVarChar(10) NOT NULL", CanBeNull=false)]
+	public string OTP
+	{
+		get
+		{
+			return this._OTP;
+		}
+		set
+		{
+			if ((this._OTP != value))
+			{
+				this.OnOTPChanging(value);
+				this.SendPropertyChanging();
+				this._OTP = value;
+				this.SendPropertyChanged("OTP");
+				this.OnOTPChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GeneratedOn", DbType="DateTime NOT NULL")]
+	public System.DateTime GeneratedOn
+	{
+		get
+		{
+			return this._GeneratedOn;
+		}
+		set
+		{
+			if ((this._GeneratedOn != value))
+			{
+				this.OnGeneratedOnChanging(value);
+				this.SendPropertyChanging();
+				this._GeneratedOn = value;
+				this.SendPropertyChanged("GeneratedOn");
+				this.OnGeneratedOnChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhoneNumber", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
+	public string PhoneNumber
+	{
+		get
+		{
+			return this._PhoneNumber;
+		}
+		set
+		{
+			if ((this._PhoneNumber != value))
+			{
+				this.OnPhoneNumberChanging(value);
+				this.SendPropertyChanging();
+				this._PhoneNumber = value;
+				this.SendPropertyChanged("PhoneNumber");
+				this.OnPhoneNumberChanged();
 			}
 		}
 	}

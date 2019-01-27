@@ -87,6 +87,7 @@ public class AllotementApplication
     public DateTime dateOfJoining { get { return _dateOfJoining; } set { _dateOfJoining = value; } }
     public DateTime DateOfAllottment { get; set; }
     public bool MedicalCategory { get; set; }
+    public string ContactNumber { get; set; }
 }
 
 public enum QuarterStatus

@@ -16,6 +16,36 @@ body {
 
 strong { font-weight: 500; }
 
+.span-img
+{
+    display:inline-block;
+    height:16px;
+    width:16px;
+    background-repeat:no-repeat;
+    background-position:center;    
+}
+
+.document-image
+{
+    background:url(../img/word.png); 
+    
+}
+
+.pdf-image
+{
+    background:url(../img/pdf.png);
+        
+}
+.xl-image
+{
+    background:url(../img/excel.png);
+        
+}
+.img-image
+{
+    background:url(../img/image.png);  
+      
+}
 
 img { max-width: 100%; }
 

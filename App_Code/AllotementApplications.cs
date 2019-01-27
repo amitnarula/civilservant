@@ -212,6 +212,7 @@ public class AllotementApplications
             obj.UserName = application.tblUser.fullName;
             obj.QuarterType = application.tblQuarterCategory.Name;
             obj.Cast = application.Cast;
+            obj.ContactNumber = application.ContactNumber;
             allotements.Add(obj);
         }
         return allotements;
