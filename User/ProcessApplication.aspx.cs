@@ -247,7 +247,8 @@ public partial class User_ProcessApplication : System.Web.UI.Page
             string.IsNullOrEmpty(secondPreference) ||
             string.IsNullOrEmpty(thirdPreference))
         {
-            lblStatus.Text = "Please select a valid preference.";
+            lblStatus.Text = "Please select all three preferred quarters.";
+            lblStatus.CssClass = "alert alert-danger";
             return;
         }
 
