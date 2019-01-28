@@ -147,7 +147,9 @@ public class Quarters
         {
             var changeRequests = datacontext
                 .tblChangeRequests
-                .Where(x => x.QuarterNumber == quarter.QuarterNumber)
+                .Where(x => x.FirstPerference == quarter.QuarterNumber ||
+                x.SecondPerference == quarter.QuarterNumber ||
+                x.ThirdPerference == quarter.QuarterNumber)
                 .ToList();
             if (changeRequests.Any())
                 changeRequests.ForEach((x) =>
