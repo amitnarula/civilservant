@@ -36,7 +36,7 @@ public class OTP
 
     public static void DeleteAllInvalidOTPs(string aan) {
         using (DataClassesDataContext dc = new DataClassesDataContext()) {
-            var invalidOtps = dc.tblOTPs.Where(x => x.AAN == aan && x.GeneratedOn.AddMinutes(5) <= DateTime.Now).ToList();
+            var invalidOtps = dc.tblOTPs.Where(x => x.AAN == aan && x.GeneratedOn.AddMinutes(10) <= DateTime.Now).ToList();
             if (invalidOtps != null)
             {
                 dc.tblOTPs.DeleteAllOnSubmit(invalidOtps);
@@ -51,7 +51,7 @@ public class OTP
 
             if (otpInDB != null)
             {
-                if (otpInDB.GeneratedOn.AddMinutes(5) >= DateTime.Now)
+                if (otpInDB.GeneratedOn.AddMinutes(10) >= DateTime.Now)
                 {
                     return true;
                 }

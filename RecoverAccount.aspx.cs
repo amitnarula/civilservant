@@ -33,7 +33,7 @@ public partial class RecoverAccount : System.Web.UI.Page
             var existingOTP = OTP.GetOTP(aan);
             if (existingOTP != null)
             {
-                ShowMessage("An OTP has already been sent, please wait for 5 minutes to generate another OTP.");
+                ShowMessage("An OTP has already been sent, please wait for 10 minutes to generate another OTP.");
                 return;
             }
             else
