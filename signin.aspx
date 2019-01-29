@@ -53,7 +53,7 @@
                                 <asp:TextBox ID="txtPassword" TextMode="Password" CssClass="form-email form-control" placeholder="Password" runat="server"></asp:TextBox>
                             </div>
                             <asp:Button ID="btnLogin" CssClass="btn" Text="Login" runat="server" OnClick="btnlogin_Click" />
-                            <a href="~/forgot.aspx" id="A1" runat="server">Forgot password</a>
+                            <a href="~/recoveraccount.aspx" id="A1" runat="server">Forgot password</a>
                             </form>
 
                         </div>
