@@ -215,7 +215,9 @@ public partial class User_ProcessApplication : System.Web.UI.Page
         DataClassesDataContext dataContext = new DataClassesDataContext();
 
         string aan = Users.getUserByUserName(HttpContext.Current.User.Identity.Name).AAN;
-        var _alreadyRequested = from _requested in dataContext.tblChangeRequests where _requested.AAN == aan select _requested;
+        var _alreadyRequested = from _requested in dataContext.tblChangeRequests 
+                                where _requested.AAN == aan && _requested.Status != (int)ChangeRequestStatus.Deleted
+                                select _requested;
         if (_alreadyRequested.FirstOrDefault() != null)
         {
             lblStatus.Text = "You have already submitted a change request!";

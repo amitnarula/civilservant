@@ -484,8 +484,9 @@ public partial class User_Submission : System.Web.UI.Page
                 if (changeRequestToUpdate != null)
                 {
                     //changeRequestToUpdate.Status = (int)ChangeRequestStatus.Done;
-                    changeRequestToUpdate.Status = (int)ChangeRequestStatus.Pending;
-                    
+                    //changeRequestToUpdate.Status = (int)ChangeRequestStatus.Pending;
+                    changeRequestToUpdate.Status = (int)ChangeRequestStatus.Deleted;
+
                     //dataContext.tblChangeRequests.DeleteOnSubmit(changeRequestToDelete);
                     dataContext.SubmitChanges();
                 }
