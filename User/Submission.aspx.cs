@@ -485,7 +485,9 @@ public partial class User_Submission : System.Web.UI.Page
                 {
                     //changeRequestToUpdate.Status = (int)ChangeRequestStatus.Done;
                     //changeRequestToUpdate.Status = (int)ChangeRequestStatus.Pending;
-                    changeRequestToUpdate.Status = (int)ChangeRequestStatus.Deleted;
+                    //changeRequestToUpdate.Status = (int)ChangeRequestStatus.Deleted;
+
+                    //Nothing to do with change requests when grade pay is changed
 
                     //dataContext.tblChangeRequests.DeleteOnSubmit(changeRequestToDelete);
                     dataContext.SubmitChanges();

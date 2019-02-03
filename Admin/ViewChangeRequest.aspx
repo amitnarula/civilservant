@@ -68,7 +68,7 @@
 <asp:BoundField HeaderStyle-CssClass="gridHeader" HeaderText="Already Allotted" DataField="AlreadyAllottedQuarter" />
                         --%>
                         <asp:BoundField HeaderStyle-CssClass="gridHeader" HeaderText="Date Of Submission"
-                            DataField="dateofsubmission" HtmlEncode="false" DataFormatString="{0:dd/MM/yyyy}" />
+                            DataField="dateofsubmission" HtmlEncode="false" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}" />
                             <asp:BoundField Visible="false" HeaderStyle-CssClass="gridHeader" HeaderText="Date Of Allotment"
                             DataField="DateOfAllotment" HtmlEncode="false" DataFormatString="{0:dd/MM/yyyy}" />
                         

@@ -228,7 +228,8 @@ DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
         tblChangeRequest tblUpdate = requests.FirstOrDefault();
         if (tblUpdate != null)
         {
-            tblUpdate.Status = (int)ChangeRequestStatus.Approved;
+            //tblUpdate.Status = (int)ChangeRequestStatus.Approved;
+            tblUpdate.Status = (int)ChangeRequestStatus.Deleted;
             dataContext.SubmitChanges(); //Updating the status of request to approved
         }
 
