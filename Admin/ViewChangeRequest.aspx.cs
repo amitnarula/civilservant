@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Linq;
 
 public partial class Admin_ViewChangeRequest : System.Web.UI.Page
 {
@@ -86,7 +87,7 @@ DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
                        {
                            request.Id,
                            request.AAN,
-                           request.dateofsubmission,
+                           dateofsubmission = ResolveToIndianDateTime(request.dateofsubmission),
                            FirstPerference = 
                              (
                               request.FirstPerference== "-1"? string.Empty : request.FirstPerference
@@ -120,11 +121,37 @@ DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
         grdQuarters.DataBind();
     }
 
-    private DateTime ResolveToIndianDateTime(DateTime input) {
-        DateTime utc = TimeZoneInfo.ConvertTimeToUtc(input);
-        DateTime temp = new DateTime(utc.Ticks, DateTimeKind.Utc);
-        DateTime ist = TimeZoneInfo.ConvertTimeFromUtc(temp, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
-        return ist;
+    private DateTime ResolveToIndianDateTime(DateTime? input) {
+        DateTime dt = input.HasValue ? input.Value : DateTime.Now;
+        //DateTime utc = TimeZoneInfo.ConvertTimeToUtc(dt);
+        //DateTime temp = new DateTime(utc.Ticks, DateTimeKind.Utc);
+        //DateTime ist = TimeZoneInfo.ConvertTimeFromUtc(utc, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
+        //return ist;
+
+        return dt.AddHours(13).AddMinutes(30); //pst and ist difference
+
+        /*TimeZoneInfo timeZoneInfo;
+        DateTime dateTime;
+        //Set the time zone information to US Mountain Standard Time 
+        timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        //Get date and time in US Mountain Standard Time 
+        dateTime = TimeZoneInfo.ConvertTime(input, timeZoneInfo);
+        //Print out the date and time
+        //Console.WriteLine(dateTime.ToString("yyyy-MM-dd HH-mm-ss"));
+        return dateTime;*/
+
+
+        /*DateTime dt = DateTime.UtcNow;
+        TimeZoneInfo usEasternZone = TimeZoneInfo.FindSystemTimeZoneById("US Eastern Standard Time"); // say
+        TimeZoneInfo indianZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"); // say
+        DateTime usEasternTime = TimeZoneInfo.ConvertTimeFromUtc(dt, usEasternZone);
+        DateTime indianTime = TimeZoneInfo.ConvertTimeFromUtc(dt, indianZone);
+        TimeSpan timeDiff = indianTime - usEasternTime;
+        usEasternTime = input; // or whatever the datetime to convert is
+        //Console.WriteLine("US Eastern Time {0}", usEasternTime);
+        indianTime = usEasternTime + timeDiff;
+        //Console.WriteLine("India Time Zone {0}", indianTime);
+        return indianTime;*/
     }
 
     protected void gridCommand(object sender, GridViewCommandEventArgs e)
@@ -216,7 +243,19 @@ DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
         if (id > 0)
             AllotementApplications.UpdateApplicationStaus(id, ApplicationStatus.Pos);
 
-        DataClassesDataContext dataContext = new DataClassesDataContext();
+        using (DataClassesDataContext dc = new DataClassesDataContext()) {
+            var changeRequests = dc.tblChangeRequests.Where(x => x.AAN == _allotte.AAN).ToList();
+            //mark all change requests to delete now
+            if (changeRequests.Any()) {
+                changeRequests.ForEach(x => {
+                    x.Status = (int)ChangeRequestStatus.Deleted;
+                });
+            }
+            dc.SubmitChanges();
+            
+        }
+
+        /*DataClassesDataContext dataContext = new DataClassesDataContext();
         var requests = from request in dataContext.tblChangeRequests where request.Id == changeRequestId select request;
         /*tblChangeRequest tblDelete = requests.FirstOrDefault();
         if (tblDelete != null)
@@ -225,14 +264,15 @@ DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
             dataContext.SubmitChanges();
         } //Finally deleting the change request changed on 02-06-2016*/
 
-        tblChangeRequest tblUpdate = requests.FirstOrDefault();
+        /*tblChangeRequest tblUpdate = requests.FirstOrDefault();
         if (tblUpdate != null)
         {
             //tblUpdate.Status = (int)ChangeRequestStatus.Approved;
             tblUpdate.Status = (int)ChangeRequestStatus.Deleted;
             dataContext.SubmitChanges(); //Updating the status of request to approved
-        }
+        }*/
 
+        
         tbluserhistory _userhistory = new tbluserhistory();
         _userhistory.Action = "Possession";
         _userhistory.description = _user.Username + " has marked possesed application with " + id;
