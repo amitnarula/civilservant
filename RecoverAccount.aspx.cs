@@ -41,7 +41,7 @@ public partial class RecoverAccount : System.Web.UI.Page
                 Random ran = new Random();
                 var randomOTP = ran.Next(10000, 99999);
 
-                new IntegratedMessageSender().SendMessage("RECOVER_PASSWORD", randomOTP.ToString(), "9041863630");
+                new IntegratedMessageSender().SendMessage("RECOVER_PASSWORD", randomOTP.ToString(), application.ContactNumber);
 
                 OTP.SaveOTP(aan, application.ContactNumber, randomOTP.ToString());
                 litPhoneNumber.Text = application.ContactNumber;
