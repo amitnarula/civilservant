@@ -135,6 +135,24 @@ public partial class Admin_possession : System.Web.UI.Page
 
         }
 
+        if (id > 0)
+            AllotementApplications.UpdateApplicationStaus(id, ApplicationStatus.Pos);
+
+        using (DataClassesDataContext dc = new DataClassesDataContext())
+        {
+            var changeRequests = dc.tblChangeRequests.Where(x => x.AAN == _allotte.AAN).ToList();
+            //mark all change requests to delete now
+            if (changeRequests.Any())
+            {
+                changeRequests.ForEach(x => {
+                    x.Status = (int)ChangeRequestStatus.Deleted;
+                });
+            }
+            dc.SubmitChanges();
+
+        }
+
+
         tbluserhistory _userhistory = new tbluserhistory();
         _userhistory.Action = "Possession";
         _userhistory.description = _user.Username + " has marked possesed application with " + id;

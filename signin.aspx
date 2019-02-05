@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" AutoEventWireup="true" Inherits="_Signin" CodeFile="~/signin.aspx.cs" %>
+<%@ Page Title="" Language="C#" AutoEventWireup="true" Inherits="_Signin" CodeFile="~/signin.aspx.cs" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 <html lang="en">
