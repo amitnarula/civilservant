@@ -83,7 +83,7 @@ public partial class Admin_allottees : System.Web.UI.Page
             _allotte.RetentionReason = ddlRetentionRule.SelectedValue;
             Allottee.Update(_allotte);
             BindData();
-            Quarters.UpdateQuarterStatus(_allotte.tblQuarter.Id, QuarterStatus.Vacant);
+            Quarters.UpdateQuarterStatus(_allotte.tblQuarter.Id, QuarterStatus.Retention);
             tbluserhistory _userhistory = new tbluserhistory();
             _userhistory.Action = "Allotement";
             _userhistory.description = _user.Username + " has marked retented with id " + id;

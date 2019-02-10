@@ -61,6 +61,9 @@ public partial class User_ProcessApplication : System.Web.UI.Page
         tbAllotmentApplication application = AllotementApplications.GetApplication(Convert.ToInt64(applicationId));
         categoryId = application.QuarterCategory.Value;
 
+        if (application.AllowChangeRequestInPreviousCategory)
+            categoryId = GradePay.GetQuarterCategoryByGradePay(Convert.ToInt32(application.PreviousGradePay));
+
         if (!Page.IsPostBack)
         {
             tblUser user = Users.getUser(application.Userid.Value);
@@ -127,17 +130,31 @@ public partial class User_ProcessApplication : System.Web.UI.Page
                 else
                 {
                     //only then when application is in possessed state.
-                    var isChangeRequestEnabled = application.Status == (int)ApplicationStatus.Pos; 
+                    var isChangeRequestEnabled = application.Status == (int)ApplicationStatus.Pos;
+                    bool isSpecialCase = application.AllowChangeRequestInPreviousCategory;
                     
                     if (application.MedicalCategory.HasValue && application.MedicalCategory.Value >= 0) //Medical grounds
                     {
                         applyForQuarterMedicalGroundsPanel.Visible = true;
                         btnChangeRequestMedical.Enabled = isChangeRequestEnabled;
+
+                        if(isSpecialCase)//special case of pay downgrade which is done manually in system tballotmentapplications
+                        {
+                            pnlApplyForChangeRequestSpecialCaseOfGradeDowngrade.Visible = true;
+                            btnChangeRequestSpecialCase.Text = "Apply for change request (medical ground) in previous category";
+                        }
+
                     }
                     else
                     {
                         applyForQuarterPanel.Visible = true;
                         btnChangeRequest.Enabled = isChangeRequestEnabled;
+
+                        if (isSpecialCase)//special case of pay downgrade which is done manually in system tballotmentapplications
+                        {
+                            pnlApplyForChangeRequestSpecialCaseOfGradeDowngrade.Visible = true;
+                            btnChangeRequestSpecialCase.Text = "Apply for change request in previous category";
+                        }
                     }
 
                 }
@@ -159,6 +176,7 @@ public partial class User_ProcessApplication : System.Web.UI.Page
                     btnChangeRequestMedical.Enabled = false;
 
                     lblRequestID.Text = changeRequest.Id.ToString();
+                    lblQuarterCategory.Text = changeRequest.QuarterCategory.ToString();
                     lblFirstPreference.Text = changeRequest.FirstPerference ?? "N/A";
                     lblSecondPreference.Text = changeRequest.SecondPerference ?? "N/A";
                     lblThirdPreference.Text = changeRequest.ThirdPerference ?? "N/A";
@@ -210,13 +228,13 @@ public partial class User_ProcessApplication : System.Web.UI.Page
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
-    { 
+    {
         //Save change request
         DataClassesDataContext dataContext = new DataClassesDataContext();
 
         string aan = Users.getUserByUserName(HttpContext.Current.User.Identity.Name).AAN;
-        var _alreadyRequested = from _requested in dataContext.tblChangeRequests 
-                                where _requested.AAN == aan && _requested.Status != (int)ChangeRequestStatus.Deleted
+        var _alreadyRequested = from _requested in dataContext.tblChangeRequests
+                                where _requested.AAN == aan && _requested.QuarterCategory == categoryId && _requested.Status != (int)ChangeRequestStatus.Deleted
                                 select _requested;
         if (_alreadyRequested.FirstOrDefault() != null)
         {
@@ -254,21 +272,52 @@ public partial class User_ProcessApplication : System.Web.UI.Page
             return;
         }
 
+        if(pnlApplyForChangeRequestSpecialCaseOfGradeDowngrade.Visible)
+            RestoreUserApplicationAndPreviousChangeRequests(aan);
+
+        //adding new change request
         tblChangeRequest changeRequest = new tblChangeRequest();
         changeRequest.AAN = aan;
         changeRequest.FirstPerference = firstPreferrence;
         if (string.IsNullOrEmpty(secondPreference)) { changeRequest.SecondPerference = string.Empty; } else { changeRequest.SecondPerference = secondPreference; }
         if (string.IsNullOrEmpty(thirdPreference)) { changeRequest.ThirdPerference = string.Empty; } else { changeRequest.ThirdPerference = thirdPreference; }
-        
+
         changeRequest.QuarterCategory = Convert.ToInt32(categoryId);
         changeRequest.QuarterNumber = lblAllottedQuarter.Text;
         changeRequest.Name = lblFullname.Text;
         changeRequest.dateofsubmission = DateTime.Now;
         dataContext.tblChangeRequests.InsertOnSubmit(changeRequest);
         dataContext.SubmitChanges();
-
+        
         Response.Redirect("~/user/confirmation.aspx");
     }
+
+    private void RestoreUserApplicationAndPreviousChangeRequests(string aan)
+    {
+        //rollback the special case now and put application back to normal and also delete the previous change request
+        //of the user as that is not valid because this is a special case and user has submitted new change request in previous category
+        using (var dc = new DataClassesDataContext())
+        {
+            var changeRequests = dc.tblChangeRequests.Where(x => x.AAN == aan).ToList();
+            //mark all change requests to delete now
+            if (changeRequests.Any())
+            {
+                changeRequests.ForEach(x =>
+                {
+                    x.Status = (int)ChangeRequestStatus.Deleted;
+                });
+            }
+
+            var app = dc.tbAllotmentApplications.FirstOrDefault(x => x.ID == Convert.ToInt32(applicationId));
+            if (app != null)
+            {
+                app.AllowChangeRequestInPreviousCategory = false;
+                app.PreviousGradePay = null;
+            }
+            dc.SubmitChanges();
+        }
+    }
+
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/user/application.aspx");
@@ -276,6 +325,11 @@ public partial class User_ProcessApplication : System.Web.UI.Page
 
     private void BindDataImprovised() {
         bool searchForMedicalGround = btnChangeRequestMedical.Enabled ? true : false;
+
+        if (pnlApplyForChangeRequestSpecialCaseOfGradeDowngrade.Visible)
+        {
+            searchForMedicalGround = btnChangeRequestSpecialCase.Text.Contains("medical");
+        }
 
         //Bind the quarters here
         List<tblQuarter> quarters = Quarters.GetQuarters();
@@ -304,9 +358,9 @@ public partial class User_ProcessApplication : System.Web.UI.Page
 
         quarters.ForEach((quarter) =>
         {
-            var noOfChangeRequestsForQuarter = changeRequests.Count(q => q.FirstPerference == quarter.QuarterNumber ||
+            var noOfChangeRequestsForQuarter = changeRequests.Count(q => (q.FirstPerference == quarter.QuarterNumber ||
                         q.SecondPerference == quarter.QuarterNumber ||
-                        q.ThirdPerference == quarter.QuarterNumber);
+                        q.ThirdPerference == quarter.QuarterNumber) && q.Status != (int)ChangeRequestStatus.Deleted);
             quartersData.Add(new QuarterData() {
                 IsVacant = quarter.Status.HasValue && quarter.Status.Value == ((int)QuarterStatus.Vacant),
                 NumberOfChangeRequests = noOfChangeRequestsForQuarter,

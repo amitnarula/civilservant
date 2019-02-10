@@ -97,7 +97,8 @@ public enum QuarterStatus
     Possessed=2,
     CPWD=3,
     Damaged=4,
-    Surrender=5
+    Surrender=5,
+    Retention=6
 }
 
 public class AllotementInformattion

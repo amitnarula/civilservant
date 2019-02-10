@@ -25,7 +25,13 @@ public partial class Admin_Quarters : System.Web.UI.Page
     }
     private void BindData()
     {
-        grdQuarters.DataSource = Quarters.GetAllQuarters(Convert.ToInt64(drpQuarterCatergory.SelectedValue));
+        //grdQuarters.DataSource = Quarters.GetAllQuarters(Convert.ToInt64(drpQuarterCatergory.SelectedValue));
+        var result = from n in Quarters.GetAllQuarters(Convert.ToInt64(drpQuarterCatergory.SelectedValue))
+                     group n by n.quarternumber into g
+                     select g.OrderByDescending(t => t.DateOfAllotement).FirstOrDefault();
+
+        grdQuarters.DataSource = result.ToList();
+
         grdQuarters.DataBind();
     }
     private void Bindcategory()
