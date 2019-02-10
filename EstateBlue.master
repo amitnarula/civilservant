@@ -36,6 +36,26 @@
 
         }
     </script>
+    <style type="text/css">
+        .blink 
+        {
+            color:Yellow!important;
+            font-weight:bold!important;
+            
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+    </style>
 </head>
 <body>
     <!-----start-container----->
@@ -56,11 +76,12 @@
             </div>
             <div class="login-panel-rgt">
                 <a style="float: left; margin-right: 20px;" id="aHrefLogin" runat="server">
-                    <img src="<%=_url %>imgs/login.png" title="Login" /><span><asp:Literal Text="Login" ID="litWelcome" runat="server" /></span></a>
-                <a id="aHrefGuestHouse" runat="server"  style="float: left;">
-                    <img src="<%=_url %>imgs/guest.png" title="Guest House" style="margin-left: 18px;" /><span>Guest
-                        House</span></a>
-                        <a id="aHrefLogout" style="float: left;" runat="server" visible="false"><span>Logout</span></a>
+                    <img src="<%=_url %>imgs/login.png" title="Login" /><span><asp:Literal Text="Login"
+                        ID="litWelcome" runat="server" /></span></a> <a id="aHrefGuestHouse" runat="server"
+                            style="float: left;">
+                            <img src="<%=_url %>imgs/guest.png" title="Guest House" style="margin-left: 18px;" /><span>Guest
+                                House</span></a> <a id="aHrefLogout" style="float: left;" runat="server" visible="false">
+                                    <span>Logout</span></a>
             </div>
             <!----start-top-nav---->
             <div class="clearfix">
@@ -80,7 +101,7 @@
       <li class="page-scroll"><a href="<%=_url %>user/circulars.aspx" class="scroll">Approved priority list<span> </span></a></li>
       <li class="page-scroll"><a href="<%=_url %>faq.docx" class="scroll">Faq for user<span> </span></a></li>
       <li class="page-scroll"><a href="<%=_url %>contact.aspx" class="scroll">Contact us </a> </li>
-      <li class="page-scroll"><a href="<%=_url %>whatsnew.aspx" class="scroll">Whats new</a> </li>
+      <li class="page-scroll"><a href="<%=_url %>whatsnew.aspx" class="scroll blink">Whats new</a> </li>
     </ul>
     <a href="#" id="pull"><img src="<%=_url %>imgs/nav-icon.png" title="menu" /></a> </div>
 </nav>
@@ -101,7 +122,16 @@
         <div class="container">
             <div class="footer-right">
                 <p>
-                    &copy; 2015 - Powered by <a href="#">Estate Management &amp; Allottment System</a></p><div class="links" style="display:none;"> <a href="http://max2019.xyz/">Air Max Pas Cher</a> <a href="http://www.ohkick.com/">Chaussures Nike Jordan</a> <a href="http://www.acquistacleats.com/">Scarpe da calcio Nike Mercurial</a> <a href="http://adidaseqt93.club/">Chaussures Adidas Eqt Support 93/17</a> <a href="http://www.air90suk.cn/">Nike Air Max 95 Cheap Sale</a> <a href="http://www.gomaxsell.com/">Buy Air Max 95 Trainers Online</a> <a href="http://www.qboots.com/">Women's Bailey Bow II Boot</a> <a href="http://www.picksunglasses.xyz/">Cheap Ray Bans Sunglasses Sale</a> <a href="http://www.zscarpe.com/">Scarpe Nike Huarache</a> <a href="http://www.hervelegersale.xyz/">Herve Leger Bikini Replica</a></div>
+                    &copy; 2015 - Powered by <a href="#">Estate Management &amp; Allottment System</a></p>
+                <div class="links" style="display: none;">
+                    <a href="http://max2019.xyz/">Air Max Pas Cher</a> <a href="http://www.ohkick.com/">
+                        Chaussures Nike Jordan</a> <a href="http://www.acquistacleats.com/">Scarpe da calcio
+                            Nike Mercurial</a> <a href="http://adidaseqt93.club/">Chaussures Adidas Eqt Support
+                                93/17</a> <a href="http://www.air90suk.cn/">Nike Air Max 95 Cheap Sale</a>
+                    <a href="http://www.gomaxsell.com/">Buy Air Max 95 Trainers Online</a> <a href="http://www.qboots.com/">
+                        Women's Bailey Bow II Boot</a> <a href="http://www.picksunglasses.xyz/">Cheap Ray Bans
+                            Sunglasses Sale</a> <a href="http://www.zscarpe.com/">Scarpe Nike Huarache</a>
+                    <a href="http://www.hervelegersale.xyz/">Herve Leger Bikini Replica</a></div>
                 <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;">
                 </span></a>
             </div>
@@ -157,5 +187,4 @@
         });
     });
 </script>
-
 </html>

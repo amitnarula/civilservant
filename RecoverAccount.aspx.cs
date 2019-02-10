@@ -44,7 +44,7 @@ public partial class RecoverAccount : System.Web.UI.Page
                 new IntegratedMessageSender().SendMessage("RECOVER_PASSWORD", randomOTP.ToString(), application.ContactNumber);
 
                 OTP.SaveOTP(aan, application.ContactNumber, randomOTP.ToString());
-                litPhoneNumber.Text = application.ContactNumber;
+                litPhoneNumber.Text = MaskContactNumber(application.ContactNumber);
                 pnlInfoOTP.Visible = true;
                 pnlEnterInfo.Visible = false;
             }
@@ -55,6 +55,37 @@ public partial class RecoverAccount : System.Web.UI.Page
             ShowMessage("Invalid information. Either AAN or phone number is invalid.");
         }
 
+    }
+
+    private string MaskContactNumber(string contactNumber) {
+        if (!string.IsNullOrEmpty(contactNumber) && contactNumber.Length>=10)
+        {
+            return MaskMobile(contactNumber, 3, "XXXXX");
+            
+        }
+        return "98XXXXXX99";
+    }
+
+    public string MaskMobile(string mobile, int startIndex, string mask)
+    {
+        if (string.IsNullOrEmpty(mobile))
+            return string.Empty;
+
+        string result = mobile;
+        int starLengh = mask.Length;
+
+
+        if (mobile.Length >= startIndex)
+        {
+            result = mobile.Insert(startIndex, mask);
+            if (result.Length >= (startIndex + starLengh * 2))
+                result = result.Remove((startIndex + starLengh), starLengh);
+            else
+                result = result.Remove((startIndex + starLengh), result.Length - (startIndex + starLengh));
+
+        }
+
+        return result;
     }
 
     private void ShowMessage(string message)

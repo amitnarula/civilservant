@@ -58,7 +58,7 @@ public partial class Reports_VacantQuarter : System.Web.UI.Page
                 DataTable dt = new DataTable("VacanctQuarters");
                 //dt.Columns.Add("Sno",typeof(string));
                 dt.Columns.Add("Quarter Number",typeof(string));
-                dt.Columns.Add("Date of vacation", typeof(DateTime));
+                dt.Columns.Add("Date of vacation", typeof(string));
                 dt.Columns.Add("Floor",typeof(int));
 
                 foreach (DataRow row in ds.Tables[0].Rows) {
@@ -68,7 +68,7 @@ public partial class Reports_VacantQuarter : System.Web.UI.Page
                     newRow["Quarter Number"] = row["Quarter number"];
                     if (row["Date Of Vacation"] != DBNull.Value)
                     {
-                        newRow["Date of vacation"] = Convert.ToDateTime(row["Date Of Vacation"]);
+                        newRow["Date of vacation"] = Convert.ToDateTime(row["Date Of Vacation"]).ToString("dd/MM/yyyy");
                     }
 
 
