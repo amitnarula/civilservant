@@ -30,10 +30,12 @@ public partial class Admin_Quarters : System.Web.UI.Page
                      group n by n.quarternumber into g
                      select g.OrderByDescending(t => t.DateOfAllotement).FirstOrDefault();
 
-        grdQuarters.DataSource = result.ToList();
+        result = result.Where(x => !string.IsNullOrEmpty(x.aan)).OrderBy(x => x.quarternumber);
 
+        grdQuarters.DataSource = result.ToList();
         grdQuarters.DataBind();
     }
+    
     private void Bindcategory()
     {
         drpQuarterCatergory.DataSource = Quarters.GetQuarterCategory();
