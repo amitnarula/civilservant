@@ -84,6 +84,8 @@
                                     Text="Possesed"></asp:LinkButton>
                                 <asp:LinkButton ID="lnkWithdraw" runat="server" CommandName="Withdraw" Visible="false" Enabled="true"
                                     CommandArgument='<%#Eval("Id") %>' Text="Cancel" OnClientClick="return confirmmessagealert() ;"></asp:LinkButton>
+                                <asp:LinkButton ID="lnkSurrender" runat="server" CommandName="Surrender" Visible="false" Enabled="true"
+                                    CommandArgument='<%#Eval("Id") %>' Text="Surrender" OnClientClick="return confirmmessagealert() ;"></asp:LinkButton>
                                 <asp:Literal Text="N/A" Visible="false" ID="litNotAvailable" runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>

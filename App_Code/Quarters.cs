@@ -145,17 +145,17 @@ public class Quarters
         var quarterStatus = (QuarterStatus)status;
         if (quarterStatus == QuarterStatus.Surrender)
         {
-            var changeRequests = datacontext
-                .tblChangeRequests
-                .Where(x => x.FirstPerference == quarter.QuarterNumber ||
-                x.SecondPerference == quarter.QuarterNumber ||
-                x.ThirdPerference == quarter.QuarterNumber)
-                .ToList();
-            if (changeRequests.Any())
-                changeRequests.ForEach((x) =>
-                {
-                    x.Status = (int)ChangeRequestStatus.Deleted;
-                });
+            //var changeRequests = datacontext
+            //    .tblChangeRequests
+            //    .Where(x => x.FirstPerference == quarter.QuarterNumber ||
+            //    x.SecondPerference == quarter.QuarterNumber ||
+            //    x.ThirdPerference == quarter.QuarterNumber)
+            //    .ToList();
+            //if (changeRequests.Any())
+            //    changeRequests.ForEach((x) =>
+            //    {
+            //        x.Status = (int)ChangeRequestStatus.Deleted;
+            //    });
 
             //datacontext.tblChangeRequests.DeleteAllOnSubmit(changeRequests);
         }

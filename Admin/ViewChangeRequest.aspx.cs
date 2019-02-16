@@ -40,15 +40,17 @@ public partial class Admin_ViewChangeRequest : System.Web.UI.Page
             {
                 ((LinkButton)e.Row.FindControl("lnkAllotte")).Visible = false;
                 ((LinkButton)e.Row.FindControl("lnkPos")).Visible = true;
+                ((LinkButton)e.Row.FindControl("lnkSurrender")).Visible = true;
                 ((LinkButton)e.Row.FindControl("lnkWithdraw")).Visible = false;
-DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
-            if (dtOfAllotment.Date.AddDays(30) <= DateTime.Now.Date)
-            {
-                ((LinkButton)e.Row.FindControl("lnkAllotte")).Visible = false;
-                ((LinkButton)e.Row.FindControl("lnkPos")).Visible = false;
-                ((LinkButton)e.Row.FindControl("lnkWithdraw")).Visible = true;
-				
-            }/*commented on 30/09/2016 purposely, uncommented on 28/11/2016 as per request purposely*/
+                DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
+                if (dtOfAllotment.Date.AddDays(30) <= DateTime.Now.Date)
+                {
+                    ((LinkButton)e.Row.FindControl("lnkAllotte")).Visible = false;
+                    ((LinkButton)e.Row.FindControl("lnkPos")).Visible = false;
+                    ((LinkButton)e.Row.FindControl("lnkWithdraw")).Visible = true;
+                    ((LinkButton)e.Row.FindControl("lnkSurrender")).Visible = false;
+
+                }/*commented on 30/09/2016 purposely, uncommented on 28/11/2016 as per request purposely*/
             }
             else
             {
@@ -188,7 +190,8 @@ DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
                 Allottee.Update(allottee);
                 //Added on January 24,2017 end
 
-                dataContext.tblChangeRequests.DeleteOnSubmit(tblreject);
+                //dataContext.tblChangeRequests.DeleteOnSubmit(tblreject);
+                tblreject.Status = (int)ChangeRequestStatus.Deleted;
                dataContext.SubmitChanges();
            }
             BindGrid();
@@ -210,7 +213,33 @@ DateTime dtOfAllotment = Convert.ToDateTime(hidDateOfAllotment.Value);
 
             pop.Show();
         }
-     
+        else if(e.CommandName == "Surrender")
+        {
+            long id;
+            Int64.TryParse(e.CommandArgument.ToString(), out id);
+            DataClassesDataContext dataContext = new DataClassesDataContext();
+            var requests = from request in dataContext.tblChangeRequests where request.Id == id select request;
+            tblChangeRequest tblsurrendered = requests.FirstOrDefault();
+            if (tblsurrendered != null)
+            {
+                //Added on January 24,2017
+                tblAllottee allottee = Allottee.GetAllotteeByAAN(tblsurrendered.AAN);
+                Quarters.UpdateQuarterStatus(allottee.QuarterNumber, QuarterStatus.Vacant);
+
+                //update allottee
+                //Reset the quarter to previous one at the time of change request
+                allottee.QuarterNumber = tblsurrendered.QuarterNumber;
+                Allottee.Update(allottee);
+                //Added on January 24,2017 end
+
+                tblsurrendered.Status = (int)ChangeRequestStatus.Deleted;
+                dataContext.SubmitChanges();
+            }
+            BindGrid();
+            AllotementApplications.UpdateApplicationStaus(id, ApplicationStatus.rejected);
+            //Quarters.UpdateQuarterStatus(tblreject.QuarterNumber, QuarterStatus.Vacant); //Commented on Dec 12,2016 purposely
+        }
+
     }
 
     protected void btnsaveMember_click(object sender, EventArgs e)

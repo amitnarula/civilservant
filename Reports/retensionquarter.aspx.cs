@@ -63,12 +63,18 @@ where a.status=4 and q.category=" + drpQuarterCat.SelectedValue + " ORDER BY a.D
         {
             DataSet ds = new DataSet();
             adp.Fill(ds);
+
+            var dtResult = ds.Tables[0].AsEnumerable()
+                .GroupBy(row => row["quarternumber"])
+                .Select(g => g.OrderByDescending(row => Convert.ToDateTime(row["Date Of RetensionUpto"] != DBNull.Value ? row["Date Of RetensionUpto"] : DateTime.MinValue)).FirstOrDefault())
+                .CopyToDataTable();
+
             ExportData.Export o = new ExportData.Export("Web");
             if (ds.Tables.Count > 0)
             {
                 if (ds.Tables[0].Rows.Count <= 0)
-                    ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
-                o.ExportDetails(ds.Tables[0], ExportData.Export.ExportFormat.Excel, "Retension Quarter report.xls");
+                    dtResult.Rows.Add(ds.Tables[0].NewRow());
+                o.ExportDetails(dtResult, ExportData.Export.ExportFormat.Excel, "Retension Quarter report.xls");
             }
         }
         finally
