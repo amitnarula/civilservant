@@ -22,7 +22,7 @@
 
 (Audit), Punjab, Plot No.21, Sector-17 E, Chandigarh</p>
         </p>
-        <p><a href="APPLICATION FORM for 2016doc.doc">Click this link to download application form</a></p>
+        <%--<p><a href="APPLICATION FORM for 2016doc.doc">Click this link to download application form</a></p>--%>
         
     </section>
 </asp:Content>
