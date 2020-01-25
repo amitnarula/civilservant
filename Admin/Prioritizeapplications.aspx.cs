@@ -274,7 +274,7 @@ public partial class Admin_AllotteQuarter : System.Web.UI.Page
                 try
                 {
                     //SEND SMS
-                    new IntegratedMessageSender().SendMessage("QUARTER_ALLOTTED", _Allottee.QuarterNumber, AllotementApplications.GetApplicationByAAN(aan).ContactNumber);
+                    new IntegratedMessageSender().SendMessage("QUARTER_ALLOTTED", _Allottee.QuarterNumber, AllotementApplications.GetApplicationByAANIrrespectiveOfSubmissionDate(aan).ContactNumber);
                 }
                 catch (Exception)
                 {

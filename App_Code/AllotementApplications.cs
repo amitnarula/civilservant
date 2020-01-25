@@ -195,6 +195,16 @@ public class AllotementApplications
         // tbAllotmentApplication updateApplication = applications.FirstOrDefault();
         return applications.FirstOrDefault();
     }
+
+    public static tbAllotmentApplication GetApplicationByAANIrrespectiveOfSubmissionDate(string AAN)
+    {
+
+        DataClassesDataContext dataContext = new DataClassesDataContext();
+        var applications = from application in dataContext.tbAllotmentApplications where application.tblUser.AAN == AAN select application;
+        // tbAllotmentApplication updateApplication = applications.FirstOrDefault();
+        return applications.FirstOrDefault();
+    }
+
     public static List<AllotementApplication> GetApplicationsByAAn(string AAN)
     {
         DataClassesDataContext dataContext = new DataClassesDataContext();
