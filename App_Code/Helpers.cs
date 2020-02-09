@@ -229,7 +229,7 @@ public class SendmailMessage {
 
             SmtpMail.Host = ConfigurationManager.AppSettings["smtphost"];
             SmtpMail.Port = Convert.ToInt32(ConfigurationManager.AppSettings["port"]);
-            SmtpMail.Port = 25;
+            SmtpMail.Port = 8889;
             SmtpMail.EnableSsl = false;
 
 
@@ -252,9 +252,9 @@ public class SendmailMessage {
     {
         SmtpClient smtpClient = new SmtpClient();
 
-        smtpClient.Credentials=new NetworkCredential("support@estatepagpb.org","Rambo@123");
+        smtpClient.Credentials = new NetworkCredential("postmaster@estatepagpb.org", "Rambo@6544");
         smtpClient.Host="mail.estatepagpb.org";
-        smtpClient.Port=25;
+        smtpClient.Port=8889;
         
 
         MailMessage message = new MailMessage();

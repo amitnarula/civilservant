@@ -22,7 +22,7 @@ public partial class Forgot : System.Web.UI.Page
         tblUser _user=Users.getUserEmail(txtEmailId.Text);
         string outstring = "";
         if (_user != null)
-            SendmailMessage.sendEmailMessage("support@estatepagpb.org", _user.EmailID, "", "Account Password", "Your password is :" + _user.Password, "", out outstring);
+            SendmailMessage.sendEmailMessage("postmaster@estatepagpb.org", _user.EmailID, "", "Account Password", "Your password is :" + _user.Password, "", out outstring);
         else
         {
             lblmessage.Text = "Invalid user!";

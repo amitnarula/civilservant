@@ -299,7 +299,7 @@ public partial class User_Submission : System.Web.UI.Page
 
                 try
                 {
-                    SendmailMessage.SendMail(user.EmailID, "support@estatepagpb.org", emailBody, "Account created");
+                    SendmailMessage.SendMail(user.EmailID, "postmaster@estatepagpb.org", emailBody, "Account created");
                 }
                 catch (Exception ex)
                 {
@@ -785,7 +785,7 @@ public partial class User_Submission : System.Web.UI.Page
     {
         try
         {
-            SendmailMessage.SendMail("amrinder.bhagtana@gmail.com", "support@estatepagpb.org", txtInformation.Text, "Please update my information, AAN : "+txtAAN.Text);
+            SendmailMessage.SendMail("amrinder.bhagtana@gmail.com", "postmaster@estatepagpb.org", txtInformation.Text, "Please update my information, AAN : " + txtAAN.Text);
 
         }
         catch (Exception)

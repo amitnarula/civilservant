@@ -56,7 +56,7 @@ public partial class signup : System.Web.UI.Page
         Users.SaveUser(_user);
         //Response.Redirect("~/admin/users.aspx?status=" + status);
         string outstring;
-        SendmailMessage.sendEmailMessage("support@estatepagpb.org", _user.EmailID, "", "Account created", "Your account has been created sucessfully!", "", out outstring);
+        SendmailMessage.sendEmailMessage("postmaster@estatepagpb.org", _user.EmailID, "", "Account created", "Your account has been created sucessfully!", "", out outstring);
         lblMessage.Text = "Information saved sucessfully!";
         lblMessage.Visible = true;
         Response.Redirect("~/Confirmation.aspx");

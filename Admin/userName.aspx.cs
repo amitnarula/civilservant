@@ -117,7 +117,7 @@ public partial class Admin_userName : System.Web.UI.Page
                 _userhistory.useraan = _user.AAN;
                 userHistory.Save(_userhistory);
                 string outstring;
-                SendmailMessage.sendEmailMessage("support@estatepagpb.org", _user.EmailID, "", "Account created", "Your account has been created sucessfully!", "", out outstring);
+                SendmailMessage.sendEmailMessage("postmaster@estatepagpb.org", _user.EmailID, "", "Account created", "Your account has been created sucessfully!", "", out outstring);
             }
             else
             {
