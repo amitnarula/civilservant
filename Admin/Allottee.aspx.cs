@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IntegratedMessages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -146,7 +147,19 @@ public partial class Admin_Allottee : System.Web.UI.Page
 
         Allottee.Save(_Allottee);
         if (applicationid > 0)
+        {
             AllotementApplications.UpdateApplicationStaus(applicationid, btnAddUpdate.Text == "Add Change Request" ? ApplicationStatus.ChangeRequested : ApplicationStatus.Allotted);
+
+            try
+            {
+                //SEND SMS
+                new IntegratedMessageSender().SendMessage("QUARTER_ALLOTTED", _Allottee.QuarterNumber, AllotementApplications.GetApplicationByAANIrrespectiveOfSubmissionDate(_Allottee.AAN).ContactNumber);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         if (!string.IsNullOrEmpty(Request["returnurl"]))
         { Response.Redirect("~/" + Request["returnurl"]);}
         else { Response.Redirect("~/admin/Allottees.aspx"); }
